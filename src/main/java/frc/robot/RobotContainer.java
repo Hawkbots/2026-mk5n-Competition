@@ -22,6 +22,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StringPublisher;
+
 public class RobotContainer {
     //Default MaxSpeed = 1.0, jack made 0.2 for testing
     private double MaxSpeed = 0.2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -46,7 +49,13 @@ public class RobotContainer {
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);
         configureBindings();
+        robotModelPublisher.set("/deploy/advantageScope/Robot2026.glb");
     }
+
+    private final StringPublisher robotModelPublisher =
+    NetworkTableInstance.getDefault()
+        .getStringTopic("Field/RobotModel")
+        .publish();
 
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
