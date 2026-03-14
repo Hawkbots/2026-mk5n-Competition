@@ -5,30 +5,36 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Feeder;
 
 public class SuckingBalls extends Command {
-    private Intake Suck; 
-    private Feeder Digest;
+    private Intake suck; 
+    private Feeder digest;
 
-    public SuckingBalls(Intake Suck, Feeder Digest) {
-        this.Suck = Suck;
-        this.Digest = Digest; 
-        addRequirements(Suck, Digest);
+    public SuckingBalls(Intake suck, Feeder digest) {
+        this.suck = suck;
+        this.digest = digest; 
+        addRequirements(suck, digest);
     }
 
     @Override
     public void execute() {
-
-        if (!Suck.deployed()) {
-            Suck.deployStart();   //deploys the intake until triggered
+        if (isOn()) {
+            toggleOff();
         } else {
-            Suck.deployEnd();   // stop deploy
-            Suck.intakeStart();
-            Digest.Swallow();
+            toggleOn();
         }
     }
 
-    @Override
-    public void end(boolean interrupted) {
-        Suck.deployEnd();
+    private boolean isOn() {
+        return suck.isIntakeOn();
+    }
+
+    private void toggleOn() {
+        suck.startIntake();
+        digest.swallow();
+    }
+
+    private void toggleOff() {
+        suck.stopIntake();
+        digest.full();
     }
 }
     

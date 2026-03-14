@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Feeder extends SubsystemBase {
     private TalonFX feederMotor = new TalonFX(3); //placeholder for CAN ID
 
-    public Feeder(){
+    public Feeder() {
     }
 
-    public void Swallow() {
+    public void swallow() {
         feederMotor.set(1);
     }
 
-    public void Full(){
+    public void full(){
         feederMotor.set(0);
     }
 
