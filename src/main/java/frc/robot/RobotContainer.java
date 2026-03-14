@@ -8,16 +8,24 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-
+import frc.robot.Commands.CloseMouth;
+import frc.robot.Commands.OpenMouth;
+import frc.robot.Commands.SuckingBalls;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Intake;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StringPublisher;
 
 public class RobotContainer {
     //Default MaxSpeed = 1.0, jack made 0.2 for testing
@@ -33,13 +41,30 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
+    private final Intake intake = new Intake();
+    private final Feeder feeder = new Feeder();
+
     private final CommandXboxController joystick = new CommandXboxController(0);
 
-    public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+    private final Command suckingBalls = new SuckingBalls(intake, feeder);
+    private final Command openMouth = new OpenMouth(intake);
+    private final Command closeMouth = new CloseMouth(intake);
+
+    private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
+        autoChooser = AutoBuilder.buildAutoChooser("Tests");
+        SmartDashboard.putData("Auto Mode", autoChooser);
         configureBindings();
+        robotModelPublisher.set("/deploy/advantageScope/Robot2026.glb");
     }
+
+    private final StringPublisher robotModelPublisher =
+    NetworkTableInstance.getDefault()
+        .getStringTopic("Field/RobotModel")
+        .publish();
 
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
@@ -77,24 +102,15 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+        
+        joystick.a().onTrue(suckingBalls);
+
+        joystick.leftBumper().whileTrue(openMouth);
+        joystick.rightBumper().whileTrue(closeMouth);
     }
 
     public Command getAutonomousCommand() {
-        // Simple drive forward auton
-        final var idle = new SwerveRequest.Idle();
-        return Commands.sequence(
-            // Reset our field centric heading to match the robot
-            // facing away from our alliance station wall (0 deg).
-            drivetrain.runOnce(() -> drivetrain.seedFieldCentric(Rotation2d.kZero)),
-            // Then slowly drive forward (away from us) for 5 seconds.
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(0.5)
-                    .withVelocityY(0)
-                    .withRotationalRate(0)
-            )
-            .withTimeout(5.0),
-            // Finally idle for the rest of auton
-            drivetrain.applyRequest(() -> idle)
-        );
+        /* Run the path selected from the auto chooser */
+        return autoChooser.getSelected();
     }
 }
