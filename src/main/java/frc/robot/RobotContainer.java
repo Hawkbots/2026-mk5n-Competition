@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -24,6 +25,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 
@@ -43,6 +45,8 @@ public class RobotContainer {
 
     private final Intake intake = new Intake();
     private final Feeder feeder = new Feeder();
+
+    private final Vision limeLight = new Vision(drive);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
 
@@ -103,10 +107,12 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
         
-        joystick.a().onTrue(suckingBalls);
+        joystick.x().onTrue(suckingBalls);
 
         joystick.leftBumper().whileTrue(openMouth);
         joystick.rightBumper().whileTrue(closeMouth);
+
+        joystick.y().whileTrue((Commands.runOnce(() -> limeLight.driveToTag()).repeatedly()));
     }
 
     public Command getAutonomousCommand() {
