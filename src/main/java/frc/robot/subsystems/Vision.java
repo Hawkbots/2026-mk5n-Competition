@@ -2,9 +2,12 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+
 
 public class Vision extends SubsystemBase {
 
@@ -71,5 +74,38 @@ public class Vision extends SubsystemBase {
     strafeSpeed *= -1.0;
     return strafeSpeed;
   }
-    
+
+  public double distance_estimation_for_shooting() {
+      double[] botpose = NetworkTableInstance.getDefault()
+              .getTable("limelight")
+              .getEntry("botpose_targetspace")
+              .getDoubleArray(new double[6]);
+
+      double x = botpose[0];
+      double z = botpose[2];
+
+      return Math.sqrt(x * x + z * z);
+  }
+
+  InterpolatingDoubleTreeMap shootingDistance = new InterpolatingDoubleTreeMap(); // distance in between 2 points will
+                                                                                  // get calculated to find real
+                                                                                  // distance
+
+  public void distanceTable() { // add more, x = distance in meters, y = power output from the motor
+      shootingDistance.put(1.0, 0.35);
+      shootingDistance.put(1.5, 0.425);
+      shootingDistance.put(2.0, 0.50);
+      shootingDistance.put(2.5, 0.575);
+      shootingDistance.put(3.0, 0.65);
+      shootingDistance.put(3.5, 0.725);
+      shootingDistance.put(4.0, 0.80);
+      shootingDistance.put(4.5, 0.875);
+  } // add further distance cuz idk real field size
+  // denser table gives more precision
+
+  public double getShootingPower() {
+      double distance = distance_estimation_for_shooting();
+      return shootingDistance.get(distance);
+  }
+
 }

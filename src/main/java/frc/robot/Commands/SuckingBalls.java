@@ -2,16 +2,13 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Feeder;
 
 public class SuckingBalls extends Command {
     private Intake suck; 
-    private Feeder digest;
 
-    public SuckingBalls(Intake suck, Feeder digest) {
+    public SuckingBalls(Intake suck) {
         this.suck = suck;
-        this.digest = digest; 
-        addRequirements(suck, digest);
+        addRequirements(suck);
     }
 
     @Override
@@ -29,12 +26,10 @@ public class SuckingBalls extends Command {
 
     private void toggleOn() {
         suck.startIntake();
-        digest.swallow();
     }
 
     private void toggleOff() {
         suck.stopIntake();
-        digest.full();
     }
 }
     

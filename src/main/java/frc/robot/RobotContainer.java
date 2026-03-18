@@ -20,11 +20,15 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Commands.CloseMouth;
 import frc.robot.Commands.OpenMouth;
+import frc.robot.Commands.Shoot;
 import frc.robot.Commands.SuckingBalls;
+import frc.robot.Commands.ReverseAllMotors;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Loader;
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
@@ -32,7 +36,7 @@ import edu.wpi.first.networktables.StringPublisher;
 public class RobotContainer {
     //Default MaxSpeed = 1.0, jack made 0.2 for testing
     private double MaxSpeed = 0.2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    private double MaxAngularRate = RotationsPerSecond.of(0.1).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -45,6 +49,8 @@ public class RobotContainer {
 
     private final Intake intake = new Intake();
     private final Feeder feeder = new Feeder();
+    // private final Shooter shooter = new Shooter(); // WHY ISNT THIS WORKING
+    private final Loader loader = new Loader();
 
     private final Vision limeLight = new Vision(drive);
 
@@ -52,9 +58,11 @@ public class RobotContainer {
 
     private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
-    private final Command suckingBalls = new SuckingBalls(intake, feeder);
+    private final Command suckingBalls = new SuckingBalls(intake);
     private final Command openMouth = new OpenMouth(intake);
     private final Command closeMouth = new CloseMouth(intake);
+    // private final Command Shoot = new Shoot(shooter, loader);
+    // private final Command reverseAllMotors = new ReverseAllMotors(intake, feeder, loader, shooter)
 
     private final SendableChooser<Command> autoChooser;
 
@@ -111,6 +119,11 @@ public class RobotContainer {
 
         joystick.leftBumper().whileTrue(openMouth);
         joystick.rightBumper().whileTrue(closeMouth);
+
+        // joystick.y().onTrue(shoot);
+        // joystick.leftTrigger().onTrue(ReverseAllMotors);
+
+
 
         joystick.y().whileTrue((Commands.runOnce(() -> limeLight.driveToTag()).repeatedly()));
     }

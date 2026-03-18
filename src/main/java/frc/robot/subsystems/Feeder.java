@@ -3,9 +3,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.MotorConstants;
 
 public class Feeder extends SubsystemBase {
-    private TalonFX feederMotor = new TalonFX(3); //placeholder for CAN ID
+    private TalonFX feederMotor = new TalonFX(MotorConstants.FEEDER_MOTOR_DEVICE_ID); //placeholder for CAN ID
 
     public Feeder() {
     }
@@ -16,6 +17,10 @@ public class Feeder extends SubsystemBase {
 
     public void full(){
         feederMotor.set(0);
+    }
+
+    public void reverseFeeder(){
+        feederMotor.set(-1);
     }
 
 }

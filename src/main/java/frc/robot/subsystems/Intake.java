@@ -4,10 +4,11 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.MotorConstants;
 
 public class Intake extends SubsystemBase {
-    private TalonFX intakeMotor = new TalonFX(1); //placeholder for CAN ID
-    private TalonFX deployMotor = new TalonFX(2); // placeholder for CAN ID
+    private TalonFX intakeMotor = new TalonFX(MotorConstants.INTAKE_MOTOR_DEVICE_ID); //placeholder for CAN ID
+    private TalonFX deployMotor = new TalonFX(MotorConstants.DEPLOY_INTAKE_MOTOR_DEVICE_ID); // placeholder for CAN ID
     private DigitalInput deployLimitSwitch = new DigitalInput(0); // placeholder channel cuz idk how to use
                                                                   // limitswitches
     private DigitalInput storedLimitSwitch = new DigitalInput(1); // placeholder channel cuz idk how to use
@@ -30,6 +31,10 @@ public class Intake extends SubsystemBase {
 
     public void stopIntake() {
         intakeMotor.set(0); // stop
+    }
+
+    public void reverseIntake() {
+        intakeMotor.set(-1);
     }
 
     public boolean isIntakeOn() {
