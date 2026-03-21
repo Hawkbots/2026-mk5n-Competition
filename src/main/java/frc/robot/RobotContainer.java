@@ -23,6 +23,7 @@ import frc.robot.Commands.OpenMouth;
 import frc.robot.Commands.Shoot;
 import frc.robot.Commands.SuckingBalls;
 import frc.robot.Commands.ReverseAllMotors;
+import frc.robot.Commands.Digest;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Feeder;
@@ -32,11 +33,13 @@ import frc.robot.subsystems.Loader;
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import com.pathplanner.lib.auto.NamedCommands;
+
 
 public class RobotContainer {
     //Default MaxSpeed = 1.0, jack made 0.2 for testing
     private double MaxSpeed = 0.2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.1).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    private double MaxAngularRate = RotationsPerSecond.of(0.77).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -44,15 +47,15 @@ public class RobotContainer {
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+    
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final Intake intake = new Intake();
     private final Feeder feeder = new Feeder();
-    // private final Shooter shooter = new Shooter(); // WHY ISNT THIS WORKING
     private final Loader loader = new Loader();
-
     private final Vision limeLight = new Vision(drive);
+    private final Shooter shooter = new Shooter(limeLight);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
 
@@ -61,16 +64,25 @@ public class RobotContainer {
     private final Command suckingBalls = new SuckingBalls(intake);
     private final Command openMouth = new OpenMouth(intake);
     private final Command closeMouth = new CloseMouth(intake);
-    // private final Command Shoot = new Shoot(shooter, loader);
-    // private final Command reverseAllMotors = new ReverseAllMotors(intake, feeder, loader, shooter)
+    private final Command shoot = new Shoot(shooter, loader, feeder);
+    private final Command digest = new Digest(feeder);
+    private final Command reverseAllMotors = new ReverseAllMotors(shooter, loader, intake, feeder);
 
     private final SendableChooser<Command> autoChooser;
+    
+
 
     public RobotContainer() {
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);
         configureBindings();
-        robotModelPublisher.set("/deploy/advantageScope/Robot2026.glb");
+        robotModelPublisher.set("/deploy/advantageScope/Robot2026.glb"); 
+        
+        NamedCommands.registerCommand("OpenMouth", openMouth);
+        NamedCommands.registerCommand("SuckingBalls", suckingBalls);
+        NamedCommands.registerCommand("Shoot", shoot);
+
+
     }
 
     private final StringPublisher robotModelPublisher =
@@ -85,8 +97,8 @@ public class RobotContainer {
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
                 //DAVID, WE TOOK THE LAZY ROUTE AND REMOVED NEGATIVES FROM THESE NEXT TWO LINES. I AM SORRY
-                drive.withVelocityX(joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
                     .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
@@ -120,8 +132,9 @@ public class RobotContainer {
         joystick.leftBumper().whileTrue(openMouth);
         joystick.rightBumper().whileTrue(closeMouth);
 
-        // joystick.y().onTrue(shoot);
-        // joystick.leftTrigger().onTrue(ReverseAllMotors);
+        joystick.rightTrigger().onTrue(shoot);
+        joystick.leftTrigger().and(joystick.rightTrigger()).whileTrue(reverseAllMotors);
+        joystick.leftTrigger().onTrue(digest);
 
 
 

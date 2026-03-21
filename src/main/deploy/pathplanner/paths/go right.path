@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.0076890156918683,
-        "y": 5.969329529243937
+        "x": 8.477018544935806,
+        "y": 5.852881597717547
       },
       "prevControl": {
-        "x": 1.5289586305278176,
-        "y": 3.1098858773181166
+        "x": 8.593466476462195,
+        "y": 8.81583452211127
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,19 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Eat Balls",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Eat Balls"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 0.1,
     "maxAcceleration": 0.1,
