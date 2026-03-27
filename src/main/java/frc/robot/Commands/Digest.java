@@ -12,12 +12,17 @@ public class Digest extends Command {
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         if (isFeederOn()) {
             toggleFeederOff();
         } else {
             toggleFeederOn();
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
     private boolean isFeederOn() {

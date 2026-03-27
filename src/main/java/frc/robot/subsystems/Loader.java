@@ -12,7 +12,7 @@ public class Loader extends SubsystemBase{
     }
 
     public void load() {
-        loaderMotor.set(1);
+        loaderMotor.set(-.5);
     }
 
     public void stop(){
@@ -20,7 +20,7 @@ public class Loader extends SubsystemBase{
     }
 
     public void reverseLoader() {
-        loaderMotor.set(-1);
+        loaderMotor.set(-0.5);
     }
 
 }

@@ -21,10 +21,15 @@ public class ReverseAllMotors extends Command{
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         shooter.reverseShooter();
         loader.reverseLoader();
         intake.reverseIntake();
         feeder.reverseFeeder();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 }

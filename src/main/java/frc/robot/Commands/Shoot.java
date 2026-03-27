@@ -27,12 +27,17 @@ public class Shoot  extends Command {
 
 
     @Override
-    public void execute() {
+    public void initialize() {
         if (shooterisOn()) {
             toggleShooterOff();
         } else {
             toggleShooterOn();
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
     private boolean shooterisOn() {

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -22,6 +23,7 @@ import frc.robot.Commands.CloseMouth;
 import frc.robot.Commands.OpenMouth;
 import frc.robot.Commands.Shoot;
 import frc.robot.Commands.SuckingBalls;
+import frc.robot.Commands.reverseIntake;
 import frc.robot.Commands.ReverseAllMotors;
 import frc.robot.Commands.Digest;
 import frc.robot.generated.TunerConstants;
@@ -34,6 +36,8 @@ import frc.robot.subsystems.Vision;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import com.pathplanner.lib.auto.NamedCommands;
+import frc.robot.Commands.testIntake;
+import frc.robot.Commands.reverseIntake;;
 
 
 public class RobotContainer {
@@ -67,6 +71,8 @@ public class RobotContainer {
     private final Command shoot = new Shoot(shooter, loader, feeder);
     private final Command digest = new Digest(feeder);
     private final Command reverseAllMotors = new ReverseAllMotors(shooter, loader, intake, feeder);
+    private final Command testIntake = new testIntake(intake);
+    private final Command reverseIntake = new reverseIntake(intake);
 
     private final SendableChooser<Command> autoChooser;
     
@@ -127,12 +133,14 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
         
-        joystick.x().onTrue(suckingBalls);
+        //joystick.x().onTrue(suckingBalls);
+        joystick.x().whileTrue(testIntake);
+        joystick.y().onTrue(reverseIntake);
 
         joystick.leftBumper().whileTrue(openMouth);
         joystick.rightBumper().whileTrue(closeMouth);
 
-        joystick.rightTrigger().onTrue(shoot);
+        joystick.rightTrigger().whileTrue(shoot);
         joystick.leftTrigger().and(joystick.rightTrigger()).whileTrue(reverseAllMotors);
         joystick.leftTrigger().onTrue(digest);
 

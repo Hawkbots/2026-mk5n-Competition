@@ -31,12 +31,14 @@ public class Shooter extends SubsystemBase {
         this.vision = vision;
     }
 
+
     public void shoot() {
-        double shootingPower = vision.getShootingPower();
-        leftShooterMotor.set(shootingPower);
+        double shootingPower = vision.getShootingPower(11); //just because i wanna annoy whoever reading this, ill type some extra space. apriltag on the field change based on the position we want to shoot from. Can probably add more april tags but this is good enough for now because im lazy
+        leftShooterMotor.set(-shootingPower);
         middleShooterMotor.set(shootingPower);
         rightShooterMotor.set(shootingPower);
     }
+
 
     public void stopShooting() {
         leftShooterMotor.set(0);
@@ -45,9 +47,9 @@ public class Shooter extends SubsystemBase {
     }
 
     public void reverseShooter(){
-        leftShooterMotor.set(-1);
-        middleShooterMotor.set(-1);
-        rightShooterMotor.set(-1);
+        leftShooterMotor.set(0.5);
+        middleShooterMotor.set(0.5);
+        rightShooterMotor.set(-0.5);
     }
 
     // public boolean isLeftShooterOn() {

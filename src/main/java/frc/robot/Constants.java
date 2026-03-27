@@ -8,13 +8,13 @@ public class Constants {
     }
 
     public static class MotorConstants {
-        public static final int FEEDER_MOTOR_DEVICE_ID = 1;
-        public static final int INTAKE_MOTOR_DEVICE_ID = 2;
-        public static final int DEPLOY_INTAKE_MOTOR_DEVICE_ID = 3;
-        public static final int LOADER_MOTOR_DEVICE_ID = 4;
-        public static final int LEFT_SHOOTER_DEVICE_ID = 5;
-        public static final int MIDDLE_SHOOTER_DEVICE_ID = 6;
-        public static final int RIGHT_SHOOTER_DEVICE_ID = 7;
+        public static final int FEEDER_MOTOR_DEVICE_ID = 52;
+        public static final int INTAKE_MOTOR_DEVICE_ID = 55;
+        public static final int DEPLOY_INTAKE_MOTOR_DEVICE_ID = 56;
+        public static final int LOADER_MOTOR_DEVICE_ID = 53;
+        public static final int LEFT_SHOOTER_DEVICE_ID = 51;
+        public static final int MIDDLE_SHOOTER_DEVICE_ID = 54;
+        public static final int RIGHT_SHOOTER_DEVICE_ID = 57;
     }
 
 

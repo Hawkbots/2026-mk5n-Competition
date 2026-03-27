@@ -1,23 +1,24 @@
-package frc.robot.Commands;
+package frc.robot.Commands; //back up code in case limitswitch too hard to install
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
-public class SuckingBalls extends Command {
-    private Intake suck; 
+public class reverseIntake extends Command {
+    private Intake suck;
 
-    public SuckingBalls(Intake suck) {
+
+    public reverseIntake(Intake suck) {
         this.suck = suck;
         addRequirements(suck);
     }
 
     @Override
-    public void initialize() {
+    public void initialize() { // idk which one. One of these will work
         if (isOn()) {
-            toggleOff();
+            suck.stopIntake();
         } else {
-            toggleOn();
-            
+            suck.reverseIntake();
+
         }
     }
 
@@ -29,13 +30,5 @@ public class SuckingBalls extends Command {
     private boolean isOn() {
         return suck.isIntakeOn();
     }
-
-    private void toggleOn() {
-        suck.startIntake();
-    }
-
-    private void toggleOff() {
-        suck.stopIntake();
-    }
 }
-    
+

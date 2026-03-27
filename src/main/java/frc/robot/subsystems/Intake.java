@@ -1,10 +1,14 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
+
+
 
 public class Intake extends SubsystemBase {
     private TalonFX intakeMotor = new TalonFX(MotorConstants.INTAKE_MOTOR_DEVICE_ID); //placeholder for CAN ID
@@ -13,17 +17,41 @@ public class Intake extends SubsystemBase {
                                                                   // limitswitches
     private DigitalInput storedLimitSwitch = new DigitalInput(1); // placeholder channel cuz idk how to use
                                                                   // limitswitches
-
     public double getIntakeVelocity() {
         return intakeMotor.getVelocity().getValueAsDouble(); // check if intake motor is spinning
+
     }
 
-    public Intake() {
+    //Troy Test Code Below
+    public void testIntake() { //paste this in somewhere in Intake.java
+        intakeMotor.set(-0.25);
     }
+// setIntakeRPM(-1100); // example RPM
+//     }
+//     private final VelocityDutyCycle velocityRequest = new VelocityDutyCycle(0);
+
+    public Intake() {
+//             Slot0Configs slot0 = new Slot0Configs();
+//             slot0.kP = 0.1;
+//     slot0.kI = 0.0;
+//     slot0.kD = 0.0;
+
+//     intakeMotor.getConfigurator().apply(slot0);
+    }
+
+//     public void setIntakeRPM(double rpm) {
+//     double rps = rpm / 60.0; // convert RPM → RPS
+//     intakeMotor.setControl(velocityRequest.withVelocity(rps));
+// }
+
+// public double getIntakeVelocityRPM() {
+//     double rps = intakeMotor.getVelocity().getValueAsDouble();
+//     return rps * 60.0;
+// }
 
     public void startIntake() {
         if (deployed()) {
-            intakeMotor.set(1); // spins wheel
+            intakeMotor.set(-1); // spins wheel
         } else {
             stopIntake();
         }
@@ -34,12 +62,12 @@ public class Intake extends SubsystemBase {
     }
 
     public void reverseIntake() {
-        intakeMotor.set(-1);
+        intakeMotor.set(0.1);
     }
 
     public boolean isIntakeOn() {
         double velocity = intakeMotor.getVelocity().getValueAsDouble();
-        return Math.abs(velocity) > .1;
+        return Math.abs(velocity) > .3;
     }
 
     public void deploy() {

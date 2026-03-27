@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.units.measure.Power;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
@@ -95,6 +94,9 @@ public class Vision extends SubsystemBase {
   }
 
   public double distance_estimation_for_shooting() {
+    if (!hasTarget()){
+      return -1;
+    }
       double[] botpose = NetworkTableInstance.getDefault()
               .getTable("limelight")
               .getEntry("botpose_targetspace") // TODO: verify this is doing what you expect
@@ -106,16 +108,31 @@ public class Vision extends SubsystemBase {
       return Math.sqrt(x * x + z * z);
   }
 
-  public double getShootingPower() {
+  public double getShootingPower(int correctTagID) {
+    if (!isCorrectTag(correctTagID)) {
+      return 0.5;
+    }
       double distance = distance_estimation_for_shooting();
 
-      distance = Math.min(distance, maximum_distance);
-      distance = Math.max(distance, minimum_distance);
+      if (distance < 0) {
+        return 0.5;
+    }
 
-      Double power = shootingDistance.get(distance);
-    //   return shootingDistance.get(distance);
+    distance = Math.min(distance, maximum_distance);
+    distance = Math.max(distance, minimum_distance);
 
-      return power;
+    Double power = shootingDistance.get(distance);
+
+    return power != null ? power : 0.5;
   }
+
+  public boolean hasTarget() {
+    return LimelightHelpers.getTV("limelight");
+}
+
+public boolean isCorrectTag(int tagID) {
+    if (!hasTarget()) return false;
+    return (int) LimelightHelpers.getFiducialID("limelight") == tagID;
+}
 
 }
