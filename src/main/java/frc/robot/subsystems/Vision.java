@@ -36,17 +36,29 @@ public class Vision extends SubsystemBase {
     }
 
     public void driveToTag() {
-    double ySpeed = limelight_strafe_proportional();
-    double rot = limelight_aim_proportional();
-    double xSpeed = limelight_range_proportional(); 
 
-    drive.withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot);
+      double ySpeed = limelight_strafe_proportional();
+      double rot = limelight_aim_proportional();
+      double xSpeed = limelight_range_proportional();
 
-    if (!LimelightHelpers.getTV("limelight")) {
-      drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0);
-      return;
+      if (LimelightHelpers.getTV("limelight")) {
+        drive.withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot);
+        return;
+      }
     }
-  }
+
+    public boolean aim() {
+
+      double rot = limelight_aim_proportional();
+
+      if (LimelightHelpers.getTV("limelight")) {
+        drive.withVelocityX(0).withVelocityY(0).withRotationalRate(rot);
+
+        double tx = LimelightHelpers.getTX("limelight"); // get the horizontal offset from the crosshair to the target in degrees. This will be used for aiming.
+        return Math.abs(tx) < Constants.LimelightConstants.kAimingTolerance; // check if the robot is aimed at the target
+      }
+      return false;
+    }
 
     /**
    * The container for the robot. Contains subsystems, OI devices, and commands.

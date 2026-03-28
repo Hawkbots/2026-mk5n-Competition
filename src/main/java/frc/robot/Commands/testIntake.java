@@ -22,10 +22,6 @@ public void end(boolean interrupted) {
     suck.stopIntake();
 }
 
-@Override
-public boolean isFinished() {
-    return false;
-}
 
     // @Override
     // public void initialize() { // idk which one. One of these will work

@@ -6,6 +6,8 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.lang.management.OperatingSystemMXBean;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -16,15 +18,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.Commands.AimAndShoot;
 import frc.robot.Commands.CloseMouth;
 import frc.robot.Commands.OpenMouth;
 import frc.robot.Commands.Shoot;
 import frc.robot.Commands.SuckingBalls;
 import frc.robot.Commands.reverseIntake;
-import frc.robot.Commands.ReverseAllMotors;
+import frc.robot.Commands.ReverseShooter;
 import frc.robot.Commands.Digest;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -62,15 +66,18 @@ public class RobotContainer {
     private final Shooter shooter = new Shooter(limeLight);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandGenericHID operator = new CommandGenericHID(1);
 
     private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     private final Command suckingBalls = new SuckingBalls(intake);
     private final Command openMouth = new OpenMouth(intake);
     private final Command closeMouth = new CloseMouth(intake);
-    private final Command shoot = new Shoot(shooter, loader, feeder);
+    private final Shoot shoot = new Shoot(shooter, loader, feeder);
+    private final Command aimAndShoot = new AimAndShoot(limeLight, shooter, loader, feeder);
+
     private final Command digest = new Digest(feeder);
-    private final Command reverseAllMotors = new ReverseAllMotors(shooter, loader, intake, feeder);
+    private final Command reverseShooter = new ReverseShooter(shooter, loader, feeder);
     private final Command testIntake = new testIntake(intake);
     private final Command reverseIntake = new reverseIntake(intake);
 
@@ -129,24 +136,27 @@ public class RobotContainer {
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // Reset the field-centric heading on left bumper press.
-        joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        operator.button(5).onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         drivetrain.registerTelemetry(logger::telemeterize);
         
         //joystick.x().onTrue(suckingBalls);
-        joystick.x().whileTrue(testIntake);
-        joystick.y().onTrue(reverseIntake);
+        operator.button(3).whileTrue(testIntake);
+        operator.button(4).whileTrue(reverseIntake);
 
-        joystick.leftBumper().whileTrue(openMouth);
-        joystick.rightBumper().whileTrue(closeMouth);
+        operator.button(5).whileTrue(openMouth);
+        operator.button(6).whileTrue(closeMouth);
 
-        joystick.rightTrigger().whileTrue(shoot);
-        joystick.leftTrigger().and(joystick.rightTrigger()).whileTrue(reverseAllMotors);
-        joystick.leftTrigger().onTrue(digest);
+        operator.axisGreaterThan(3, 0.95).whileTrue(shoot);
+        operator.button(1).whileTrue(reverseShooter);
+        operator.axisGreaterThan(2, 0.95).onTrue(digest);
+
+// dual controller, controller + buttonboard, where controller moves button board for commands.
+// add buttonboard
+// probably add the table for angle similar to distance. "at this distance, rotate until this degree
 
 
-
-        joystick.y().whileTrue((Commands.runOnce(() -> limeLight.driveToTag()).repeatedly()));
+        operator.button(4).whileTrue((Commands.runOnce(() -> limeLight.driveToTag()).repeatedly()));
     }
 
     public Command getAutonomousCommand() {

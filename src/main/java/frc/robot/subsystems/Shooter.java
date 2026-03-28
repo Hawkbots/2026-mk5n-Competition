@@ -21,19 +21,13 @@ public class Shooter extends SubsystemBase {
         return rightShooterMotor.getVelocity().getValueAsDouble();
     }
 
-    // public void shoot() {
-    //     leftShooterMotor.set(1);
-    //     middleShooterMotor.set(1);
-    //     rightShooterMotor.set(1);
-    // }
-
     public Shooter(Vision vision) {
         this.vision = vision;
     }
 
 
     public void shoot() {
-        double shootingPower = vision.getShootingPower(11); //just because i wanna annoy whoever reading this, ill type some extra space. apriltag on the field change based on the position we want to shoot from. Can probably add more april tags but this is good enough for now because im lazy
+        double shootingPower = vision.getShootingPower(11); //important text is in the middle so you cant scroll to the end, just because i wanna annoy whoever reading this, ill type some extra space. apriltag on the field change based on the position we want to shoot from. Can probably add more april tags but this is good enough for now because im lazy
         leftShooterMotor.set(-shootingPower);
         middleShooterMotor.set(shootingPower);
         rightShooterMotor.set(shootingPower);

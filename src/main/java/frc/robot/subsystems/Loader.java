@@ -12,7 +12,7 @@ public class Loader extends SubsystemBase{
     }
 
     public void load() {
-        loaderMotor.set(-.5);
+        loaderMotor.set(-.8);
     }
 
     public void stop(){
@@ -20,7 +20,7 @@ public class Loader extends SubsystemBase{
     }
 
     public void reverseLoader() {
-        loaderMotor.set(-0.5);
-    }
+        loaderMotor.set(0.8);
+    } // loader and feeder reverse same time to free up balls
 
 }

@@ -20,7 +20,7 @@ public class Feeder extends SubsystemBase {
     }
 
     public void reverseFeeder(){
-        feederMotor.set(-.3);
+        feederMotor.set(.3);
     }
 
         public boolean isFeederOn() {

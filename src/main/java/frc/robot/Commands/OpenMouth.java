@@ -14,6 +14,14 @@ public class OpenMouth extends Command {
 
     @Override
     public void execute() {
+        suck.stopIntake();
         suck.deploy(); // if bottom limitswitch returns true, deploy will halt and return
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        suck.halt();
+    }
+
+
 }

@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
 
     //Troy Test Code Below
     public void testIntake() { //paste this in somewhere in Intake.java
-        intakeMotor.set(-0.25);
+        intakeMotor.set(-0.35);
     }
 // setIntakeRPM(-1100); // example RPM
 //     }
@@ -50,11 +50,11 @@ public class Intake extends SubsystemBase {
 // }
 
     public void startIntake() {
-        if (deployed()) {
+        // if (deployed()) {
             intakeMotor.set(-1); // spins wheel
-        } else {
-            stopIntake();
-        }
+        // } else {
+        //     stopIntake();
+        // }
     }
 
     public void stopIntake() {
@@ -70,11 +70,7 @@ public class Intake extends SubsystemBase {
         return Math.abs(velocity) > .3;
     }
 
-    public void deploy() {
-        if (deployed()) {
-            halt();
-            return;
-        }
+    public void deploy() { 
         deployMotor.set(.5); // set the intake down
     }
 
@@ -83,18 +79,14 @@ public class Intake extends SubsystemBase {
     }
 
     public void store() {
-        if (stored()) {
-            halt();
-            return;
-        }
         deployMotor.set(-.5); // store the intake
     }
 
-    public boolean deployed() {
-        return deployLimitSwitch.get(); // bottom limitswitch
-    }
+    // public boolean deployed() {
+    //     return deployLimitSwitch.get(); // bottom limitswitch
+    // }
 
-    public boolean stored() {
-        return storedLimitSwitch.get(); // top limit switch
-    }
+    // public boolean stored() {
+    //     return storedLimitSwitch.get(); // top limit switch
+    // }
 }

@@ -12,20 +12,34 @@ public class reverseIntake extends Command {
         addRequirements(suck);
     }
 
-    @Override
-    public void initialize() { // idk which one. One of these will work
-        if (isOn()) {
-            suck.stopIntake();
-        } else {
-            suck.reverseIntake();
-
-        }
-    }
 
     @Override
-    public boolean isFinished() {
-        return true;
-    }
+public void execute() {
+    suck.reverseIntake();
+}
+
+    @Override
+public void end(boolean interrupted) {
+    suck.stopIntake();
+}
+
+    // @Override
+    // public void initialize() { // idk which one. One of these will work
+    //     if (isOn()) {
+    //         suck.stopIntake();
+    //     } else {
+    //         suck.reverseIntake();
+
+    //     }
+    // }
+
+    // @Override
+    // public boolean isFinished() {
+    //     return true;
+    // }
+
+
+
 
     private boolean isOn() {
         return suck.isIntakeOn();

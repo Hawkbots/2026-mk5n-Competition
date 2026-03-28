@@ -17,4 +17,9 @@ public class CloseMouth extends Command {
         suck.stopIntake();
         suck.store(); // if top limitswitch returns true, store will halt and return
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        suck.halt();
+    }
 }

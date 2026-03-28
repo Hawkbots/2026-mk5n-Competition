@@ -6,30 +6,34 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Feeder;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class ReverseAllMotors extends Command{
+public class ReverseShooter extends Command{
         private Loader loader;
         private Shooter shooter;
-        private Intake intake;
+        
         private Feeder feeder;
 
-    public ReverseAllMotors(Shooter shooter, Loader loader, Intake intake, Feeder feeder) {
+    public ReverseShooter(Shooter shooter, Loader loader, Feeder feeder) {
         this.shooter = shooter;
         this.loader = loader;
-        this.intake = intake;
+
         this.feeder = feeder;
-        addRequirements(shooter, loader, intake, feeder);
+        addRequirements(shooter, loader, feeder);
     }
 
     @Override
-    public void initialize() {
+    public void execute() {
         shooter.reverseShooter();
         loader.reverseLoader();
-        intake.reverseIntake();
+        
         feeder.reverseFeeder();
     }
 
     @Override
-    public boolean isFinished() {
-        return true;
+    public void end(boolean interrupted) {  
+        shooter.stopShooting();
+        loader.stop();
+        feeder.stopFeeder();
     }
+
+    
 }
