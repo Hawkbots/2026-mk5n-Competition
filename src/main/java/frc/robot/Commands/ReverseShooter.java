@@ -35,5 +35,9 @@ public class ReverseShooter extends Command{
         feeder.stopFeeder();
     }
 
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
     
 }

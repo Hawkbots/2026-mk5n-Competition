@@ -19,10 +19,10 @@ public class Digest extends Command {
             toggleFeederOn();
         }
     }
-
+    
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 
     private boolean isFeederOn() {

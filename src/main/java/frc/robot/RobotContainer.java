@@ -94,8 +94,6 @@ public class RobotContainer {
         NamedCommands.registerCommand("OpenMouth", openMouth);
         NamedCommands.registerCommand("SuckingBalls", suckingBalls);
         NamedCommands.registerCommand("Shoot", shoot);
-
-
     }
 
     private final StringPublisher robotModelPublisher =

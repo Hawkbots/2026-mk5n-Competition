@@ -18,5 +18,10 @@ public class Constants {
         public static final int RIGHT_SHOOTER_DEVICE_ID = 57;
     }
 
+    public static class ShooterSettings {
+        public static final String SHOOTER_POWER_NAME = "Shooter Power";
+        public static final double POWER = 0.5;
+    }
+
 
 }

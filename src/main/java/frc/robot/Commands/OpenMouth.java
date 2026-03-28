@@ -23,5 +23,10 @@ public class OpenMouth extends Command {
         suck.halt();
     }
 
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+
 
 }

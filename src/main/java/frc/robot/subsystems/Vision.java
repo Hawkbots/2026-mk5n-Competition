@@ -2,7 +2,10 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
@@ -18,6 +21,8 @@ public class Vision extends SubsystemBase {
     private static double minimum_distance = 1.0;
     private static double maximum_distance = 4.5;
 
+    private final NetworkTableEntry shooterPowerEntry;
+
     static {
         shootingDistance.put(minimum_distance, 0.35);
         shootingDistance.put(1.5, 0.425);
@@ -28,11 +33,15 @@ public class Vision extends SubsystemBase {
         shootingDistance.put(4.0, 0.80);
         shootingDistance.put(maximum_distance, 0.875);
     }
-
+//85 inches max distance, convert to meters and measure
+//175 diagnally max distance
 
 
     public Vision(SwerveRequest.FieldCentric drive) {
         this.drive = drive;
+        NetworkTable table = NetworkTableInstance.getDefault().getTable("Settings");
+        shooterPowerEntry = table.getEntry(Constants.ShooterSettings.SHOOTER_POWER_NAME);
+        shooterPowerEntry.setDefaultDouble(Constants.ShooterSettings.POWER);
     }
 
     public void driveToTag() {
@@ -122,12 +131,12 @@ public class Vision extends SubsystemBase {
 
   public double getShootingPower(int correctTagID) {
     if (!isCorrectTag(correctTagID)) {
-      return 0.5;
+      return shooterPowerEntry.getDouble(Constants.ShooterSettings.POWER);
     }
-      double distance = distance_estimation_for_shooting();
+    double distance = distance_estimation_for_shooting();
 
-      if (distance < 0) {
-        return 0.5;
+    if (distance < 0) {
+      return shooterPowerEntry.getDouble(Constants.ShooterSettings.POWER);
     }
 
     distance = Math.min(distance, maximum_distance);
@@ -135,7 +144,7 @@ public class Vision extends SubsystemBase {
 
     Double power = shootingDistance.get(distance);
 
-    return power != null ? power : 0.5;
+    return power != null ? power : 1.0;
   }
 
   public boolean hasTarget() {

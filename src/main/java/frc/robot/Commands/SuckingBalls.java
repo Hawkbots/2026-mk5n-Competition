@@ -21,9 +21,9 @@ public class SuckingBalls extends Command {
         }
     }
 
-    @Override
+  @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 
     private boolean isOn() {

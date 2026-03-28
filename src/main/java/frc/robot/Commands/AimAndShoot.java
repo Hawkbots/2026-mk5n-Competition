@@ -30,9 +30,13 @@ public class AimAndShoot  extends Command {
     }
 
     @Override
-    public boolean isFinished() {
+    public void end(boolean interrupted) {
         toggleShooterOff();
-        return true;
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
     }
 
     private boolean shooterisOn() {

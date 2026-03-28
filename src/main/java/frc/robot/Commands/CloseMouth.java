@@ -22,4 +22,9 @@ public class CloseMouth extends Command {
     public void end(boolean interrupted) {
         suck.halt();
     }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

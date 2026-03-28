@@ -33,10 +33,10 @@ public void end(boolean interrupted) {
     //     }
     // }
 
-    // @Override
-    // public boolean isFinished() {
-    //     return true;
-    // }
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 
     // private boolean isOn() {
     //     return suck.isIntakeOn();
