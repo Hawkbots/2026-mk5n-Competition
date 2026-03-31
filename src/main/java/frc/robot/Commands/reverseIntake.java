@@ -14,7 +14,7 @@ public class reverseIntake extends Command {
 
 
     @Override
-public void execute() {
+public void initialize() {
     suck.reverseIntake();
 }
 

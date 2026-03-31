@@ -7,6 +7,7 @@ public class SuckingBalls extends Command {
     private Intake suck; 
 
     public SuckingBalls(Intake suck) {
+        System.err.println("fuck you troy");
         this.suck = suck;
         addRequirements(suck);
     }

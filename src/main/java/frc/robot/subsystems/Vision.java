@@ -33,8 +33,9 @@ public class Vision extends SubsystemBase {
         shootingDistance.put(4.0, 0.80);
         shootingDistance.put(maximum_distance, 0.875);
     }
-//85 inches max distance, convert to meters and measure
-//175 diagnally max distance
+//159 inches, V = 10
+//111 inches, V = 7.5
+//V= 6 or 5.5 is lowest to reach
 
 
     public Vision(SwerveRequest.FieldCentric drive) {

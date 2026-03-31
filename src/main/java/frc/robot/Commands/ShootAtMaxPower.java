@@ -1,17 +1,16 @@
-package frc.robot.Commands; //i want to name it poop or pee
+package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Loader;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Feeder;
 
-public class Shoot  extends Command {
+public class ShootAtMaxPower extends Command {
     private Shooter shooter; 
     private Loader loader;
     private Feeder feeder;
 
-    public Shoot(Shooter shooter, Loader loader, Feeder feeder) {
-        System.err.println("fuck you troy");
+    public ShootAtMaxPower(Shooter shooter, Loader loader, Feeder feeder) {
         this.shooter = shooter;
         this.loader = loader;
         this.feeder = feeder;
@@ -21,11 +20,6 @@ public class Shoot  extends Command {
 
     @Override
     public void initialize() {
-        // if (shooterisOn()) {
-        //     toggleShooterOff();
-        // } else {
-        //     toggleShooterOn();
-        // }
         toggleShooterOn();
 
     }
@@ -45,7 +39,7 @@ public class Shoot  extends Command {
     }
 
     private void toggleShooterOn() {
-        shooter.shoot();
+        shooter.shootMaxPower();
         loader.load();
         feeder.startFeeder();
     }
@@ -55,4 +49,5 @@ public class Shoot  extends Command {
         loader.stop();
         feeder.stopFeeder();
    }
+    
 }

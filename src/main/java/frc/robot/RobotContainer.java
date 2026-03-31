@@ -26,10 +26,13 @@ import frc.robot.Commands.AimAndShoot;
 import frc.robot.Commands.CloseMouth;
 import frc.robot.Commands.OpenMouth;
 import frc.robot.Commands.Shoot;
+import frc.robot.Commands.ShootAt50Percent;
+import frc.robot.Commands.ShootAt75Percent;
+import frc.robot.Commands.ShootAtMaxPower;
 import frc.robot.Commands.SuckingBalls;
 import frc.robot.Commands.reverseIntake;
 import frc.robot.Commands.ReverseShooter;
-import frc.robot.Commands.Digest;
+// import frc.robot.Commands.Digest;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Feeder;
@@ -41,7 +44,11 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 import com.pathplanner.lib.auto.NamedCommands;
 import frc.robot.Commands.testIntake;
-import frc.robot.Commands.reverseIntake;;
+import frc.robot.Commands.reverseIntake;
+import frc.robot.Commands.ShootAt50Percent;
+import frc.robot.Commands.ShootAtMaxPower;
+import frc.robot.Commands.ShootAt75Percent;
+
 
 
 public class RobotContainer {
@@ -76,10 +83,13 @@ public class RobotContainer {
     private final Shoot shoot = new Shoot(shooter, loader, feeder);
     private final Command aimAndShoot = new AimAndShoot(limeLight, shooter, loader, feeder);
 
-    private final Command digest = new Digest(feeder);
+    // private final Command digest = new Digest(feeder);
     private final Command reverseShooter = new ReverseShooter(shooter, loader, feeder);
     private final Command testIntake = new testIntake(intake);
     private final Command reverseIntake = new reverseIntake(intake);
+    private final Command shootAt50Percent = new ShootAt50Percent(shooter, loader, feeder);
+    private final Command shootMaxPower = new ShootAtMaxPower(shooter, loader, feeder);
+    private final Command shootAt75Percent = new ShootAt75Percent(shooter, loader, feeder);
 
     private final SendableChooser<Command> autoChooser;
     
@@ -142,12 +152,16 @@ public class RobotContainer {
         operator.button(3).whileTrue(testIntake);
         operator.button(4).whileTrue(reverseIntake);
 
-        operator.button(5).whileTrue(openMouth);
-        operator.button(6).whileTrue(closeMouth);
+        operator.axisGreaterThan(1, 0.5).whileTrue(closeMouth);
+        operator.axisLessThan(1, -0.5).whileTrue(openMouth);
 
         operator.axisGreaterThan(3, 0.95).whileTrue(shoot);
         operator.button(1).whileTrue(reverseShooter);
-        operator.axisGreaterThan(2, 0.95).onTrue(digest);
+        // operator.axisGreaterThan(2, 0.95).onTrue(digest);
+        joystick.x().whileTrue(shootAt50Percent);
+        joystick.y().whileTrue(shootMaxPower);
+        // joystick.rightTrigger().whileTrue(digest);
+        joystick.leftTrigger().whileTrue(shootAt75Percent);
 
 // dual controller, controller + buttonboard, where controller moves button board for commands.
 // add buttonboard

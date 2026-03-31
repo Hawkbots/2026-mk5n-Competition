@@ -8,12 +8,13 @@ public class OpenMouth extends Command {
 
 
     public OpenMouth(Intake suck) {
+        System.err.println("fuck you troy");
         this.suck = suck;
         addRequirements(suck);
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         suck.stopIntake();
         suck.deploy(); // if bottom limitswitch returns true, deploy will halt and return
     }

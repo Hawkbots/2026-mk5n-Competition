@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,7 +14,7 @@ import frc.robot.Constants.MotorConstants;
 
 public class Intake extends SubsystemBase {
     private TalonFX intakeMotor = new TalonFX(MotorConstants.INTAKE_MOTOR_DEVICE_ID); //placeholder for CAN ID
-    private TalonFX deployMotor = new TalonFX(MotorConstants.DEPLOY_INTAKE_MOTOR_DEVICE_ID); // placeholder for CAN ID
+    private SparkMax deployMotor = new SparkMax(MotorConstants.DEPLOY_INTAKE_MOTOR_DEVICE_ID, MotorType.kBrushless); // placeholder for CAN ID
     private DigitalInput deployLimitSwitch = new DigitalInput(0); // placeholder channel cuz idk how to use
                                                                   // limitswitches
     private DigitalInput storedLimitSwitch = new DigitalInput(1); // placeholder channel cuz idk how to use
@@ -62,7 +64,7 @@ public class Intake extends SubsystemBase {
     }
 
     public void reverseIntake() {
-        intakeMotor.set(0.1);
+        intakeMotor.set(0.3);
     }
 
     public boolean isIntakeOn() {

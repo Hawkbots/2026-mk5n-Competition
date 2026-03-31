@@ -1,6 +1,5 @@
-package frc.robot.Commands; //calling it vomit
+package frc.robot.Commands;
 
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Loader;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Feeder;

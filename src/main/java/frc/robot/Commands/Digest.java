@@ -13,11 +13,18 @@ public class Digest extends Command {
 
     @Override
     public void initialize() {
-        if (isFeederOn()) {
-            toggleFeederOff();
-        } else {
-            toggleFeederOn();
-        }
+        // if (isFeederOn()) {
+        //     toggleFeederOff();
+        // } else {
+        //     toggleFeederOn();
+        // }
+
+        toggleFeederOn();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        toggleFeederOff();
     }
     
     @Override
