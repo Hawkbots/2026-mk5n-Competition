@@ -96,13 +96,13 @@ public class RobotContainer {
 
 
     public RobotContainer() {
+        NamedCommands.registerCommand("SuckingBalls", suckingBalls);
+        NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
+
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);
         configureBindings();
         robotModelPublisher.set("/deploy/advantageScope/Robot2026.glb"); 
-        
-        NamedCommands.registerCommand("SuckingBalls", suckingBalls);
-        NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
     }
 
     private final StringPublisher robotModelPublisher =

@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Forward"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "SuckingBalls"
