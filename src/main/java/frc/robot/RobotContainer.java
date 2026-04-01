@@ -102,7 +102,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("StopIntake", stopIntake);
         NamedCommands.registerCommand("Open", openMouth);
         NamedCommands.registerCommand("Close", closeMouth);
-        NamedCommands.registerCommand("Shoot", shoot);
+        NamedCommands.registerCommand("Shoot", shoot.withTimeout(1));
         NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
 
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
