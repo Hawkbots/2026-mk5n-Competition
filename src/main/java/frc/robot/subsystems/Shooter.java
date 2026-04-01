@@ -28,9 +28,9 @@ public class Shooter extends SubsystemBase {
 
     public void shoot() {
         double shootingPower = vision.getShootingPower(10); //important text is in the middle so you cant scroll to the end, just because i wanna annoy whoever reading this, ill type some extra space. apriltag on the field change based on the position we want to shoot from. Can probably add more april tags but this is good enough for now because im lazy
-        leftShooterMotor.set(-shootingPower);
-        middleShooterMotor.set(shootingPower);
-        rightShooterMotor.set(shootingPower);
+        leftShooterMotor.setVoltage(-shootingPower);
+        middleShooterMotor.setVoltage(shootingPower);
+        rightShooterMotor.setVoltage(shootingPower);
     }
 
         public void shoot50Percent() {

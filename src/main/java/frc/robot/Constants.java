@@ -20,7 +20,8 @@ public class Constants {
 
     public static class ShooterSettings {
         public static final String SHOOTER_POWER_NAME = "Shooter Power";
-        public static final double POWER = 0.75; // Placeholder value, adjust as needed
+        public static final double POWER = 10.0; // Placeholder value, adjust as needed
+        public static final double POWER2 = 7.5;
     }
 
 

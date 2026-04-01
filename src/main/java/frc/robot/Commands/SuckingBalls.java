@@ -3,29 +3,31 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
+
 public class SuckingBalls extends Command {
     private Intake suck; 
 
     public SuckingBalls(Intake suck) {
-        System.err.println("fuck you troy");
         this.suck = suck;
         addRequirements(suck);
     }
 
     @Override
-    public void initialize() {
-        if (isOn()) {
-            toggleOff();
-        } else {
-            toggleOn();
+    public void execute() {
+        // if (isOn()) {
+        //     toggleOff();
+        // } else {
+        //     toggleOn();
             
-        }
+        // }
+        System.err.println("fuck you troy");
+        suck.startIntake();
     }
 
-  @Override
-    public boolean isFinished() {
-        return false;
-    }
+//   @Override
+//     public boolean isFinished() {
+//         return false;
+//     }
 
     private boolean isOn() {
         return suck.isIntakeOn();

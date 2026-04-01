@@ -77,9 +77,9 @@ public class RobotContainer {
 
     private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
-    private final Command suckingBalls = new SuckingBalls(intake);
-    private final Command openMouth = new OpenMouth(intake);
-    private final Command closeMouth = new CloseMouth(intake);
+    public final Command suckingBalls = new SuckingBalls(intake);
+    public final Command openMouth = new OpenMouth(intake);
+    public final Command closeMouth = new CloseMouth(intake);
     private final Shoot shoot = new Shoot(shooter, loader, feeder);
     private final Command aimAndShoot = new AimAndShoot(limeLight, shooter, loader, feeder);
 
@@ -101,9 +101,8 @@ public class RobotContainer {
         configureBindings();
         robotModelPublisher.set("/deploy/advantageScope/Robot2026.glb"); 
         
-        NamedCommands.registerCommand("OpenMouth", openMouth);
         NamedCommands.registerCommand("SuckingBalls", suckingBalls);
-        NamedCommands.registerCommand("Shoot", shoot);
+        NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
     }
 
     private final StringPublisher robotModelPublisher =
@@ -162,6 +161,7 @@ public class RobotContainer {
         joystick.y().whileTrue(shootMaxPower);
         // joystick.rightTrigger().whileTrue(digest);
         joystick.leftTrigger().whileTrue(shootAt75Percent);
+        joystick.rightTrigger().whileTrue(shoot);
 
 // dual controller, controller + buttonboard, where controller moves button board for commands.
 // add buttonboard

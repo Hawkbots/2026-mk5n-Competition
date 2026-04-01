@@ -11,7 +11,6 @@ public class Shoot  extends Command {
     private Feeder feeder;
 
     public Shoot(Shooter shooter, Loader loader, Feeder feeder) {
-        System.err.println("fuck you troy");
         this.shooter = shooter;
         this.loader = loader;
         this.feeder = feeder;

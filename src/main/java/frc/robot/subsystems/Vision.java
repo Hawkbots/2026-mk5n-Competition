@@ -18,20 +18,17 @@ public class Vision extends SubsystemBase {
 
     private static InterpolatingDoubleTreeMap shootingDistance = new InterpolatingDoubleTreeMap();
 
-    private static double minimum_distance = 1.0;
-    private static double maximum_distance = 4.5;
+    private static double minimum_distance = 2.0;
+    private static double maximum_distance = 4.0;
 
     private final NetworkTableEntry shooterPowerEntry;
 
     static {
-        shootingDistance.put(minimum_distance, 0.35);
-        shootingDistance.put(1.5, 0.425);
-        shootingDistance.put(2.0, 0.50);
-        shootingDistance.put(2.5, 0.575);
-        shootingDistance.put(3.0, 0.65);
-        shootingDistance.put(3.5, 0.725);
-        shootingDistance.put(4.0, 0.80);
-        shootingDistance.put(maximum_distance, 0.875);
+        shootingDistance.put(minimum_distance, 6.0);
+        shootingDistance.put(2.5, 7.0);
+        shootingDistance.put(3.0, 8.0);
+        shootingDistance.put(3.5, 9.0);
+        shootingDistance.put(maximum_distance, 10.0);
     }
 //159 inches, V = 10
 //111 inches, V = 7.5
@@ -133,11 +130,11 @@ public class Vision extends SubsystemBase {
   public double getShootingPower(int correctTagID) {
     if (!isCorrectTag(correctTagID)) {
       return shooterPowerEntry.getDouble(Constants.ShooterSettings.POWER);
-    }
+    } //THIS IS THE ISSUE
     double distance = distance_estimation_for_shooting();
 
     if (distance < 0) {
-      return shooterPowerEntry.getDouble(Constants.ShooterSettings.POWER);
+      return shooterPowerEntry.getDouble(Constants.ShooterSettings.POWER2);
     }
 
     distance = Math.min(distance, maximum_distance);

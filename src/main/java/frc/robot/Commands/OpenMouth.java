@@ -8,7 +8,6 @@ public class OpenMouth extends Command {
 
 
     public OpenMouth(Intake suck) {
-        System.err.println("fuck you troy");
         this.suck = suck;
         addRequirements(suck);
     }
