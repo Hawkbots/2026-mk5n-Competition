@@ -13,17 +13,6 @@ public class SuckingBalls extends Command {
     }
 
     @Override
-    public void end(boolean interrupted) {
-        //stopIntake();
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
-
-
-    @Override
     public void execute() {
         // if (isOn()) {
         //     toggleOff();
@@ -31,7 +20,6 @@ public class SuckingBalls extends Command {
         //     toggleOn();
             
         // }
-        System.err.println("fuck you troy");
         suck.startIntake();
     }
 
@@ -39,6 +27,18 @@ public class SuckingBalls extends Command {
 //     public boolean isFinished() {
 //         return false;
 //     }
+
+
+    @Override
+    public void end(boolean interrupted) {
+        suck.stopIntake();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+
 
     private boolean isOn() {
         return suck.isIntakeOn();
