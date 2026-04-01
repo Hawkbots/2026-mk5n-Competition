@@ -13,6 +13,17 @@ public class SuckingBalls extends Command {
     }
 
     @Override
+    public void end(boolean interrupted) {
+        //stopIntake();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+
+
+    @Override
     public void execute() {
         // if (isOn()) {
         //     toggleOff();

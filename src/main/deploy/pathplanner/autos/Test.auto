@@ -13,19 +13,13 @@
         {
           "type": "named",
           "data": {
-            "name": "SuckingBalls"
+            "name": "Shoot"
           }
         },
         {
-          "type": "wait",
+          "type": "parallel",
           "data": {
-            "waitTime": 5.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopIntake"
+            "commands": []
           }
         }
       ]

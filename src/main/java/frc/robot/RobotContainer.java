@@ -98,7 +98,7 @@ public class RobotContainer {
 
 
     public RobotContainer() {
-        NamedCommands.registerCommand("SuckingBalls", suckingBalls);
+        NamedCommands.registerCommand("SuckingBalls", suckingBalls.withTimeout(3));
         NamedCommands.registerCommand("StopIntake", stopIntake);
         NamedCommands.registerCommand("Open", openMouth);
         NamedCommands.registerCommand("Close", closeMouth);
