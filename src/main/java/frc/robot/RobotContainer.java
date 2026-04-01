@@ -29,6 +29,7 @@ import frc.robot.Commands.Shoot;
 import frc.robot.Commands.ShootAt50Percent;
 import frc.robot.Commands.ShootAt75Percent;
 import frc.robot.Commands.ShootAtMaxPower;
+import frc.robot.Commands.StopIntake;
 import frc.robot.Commands.SuckingBalls;
 import frc.robot.Commands.reverseIntake;
 import frc.robot.Commands.ReverseShooter;
@@ -78,6 +79,7 @@ public class RobotContainer {
     private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     public final Command suckingBalls = new SuckingBalls(intake);
+    public final Command stopIntake = new StopIntake(intake);
     public final Command openMouth = new OpenMouth(intake);
     public final Command closeMouth = new CloseMouth(intake);
     private final Shoot shoot = new Shoot(shooter, loader, feeder);
@@ -97,6 +99,10 @@ public class RobotContainer {
 
     public RobotContainer() {
         NamedCommands.registerCommand("SuckingBalls", suckingBalls);
+        NamedCommands.registerCommand("StopIntake", stopIntake);
+        NamedCommands.registerCommand("Open", openMouth);
+        NamedCommands.registerCommand("Close", closeMouth);
+        NamedCommands.registerCommand("Shoot", shoot);
         NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
 
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
