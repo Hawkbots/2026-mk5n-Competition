@@ -47,6 +47,9 @@ public class Shoot  extends Command {
         shooter.shoot();
         loader.load();
         feeder.startFeeder();
+System.out.println("Has Target: " + hasTarget());
+System.out.println("Detected ID: " + LimelightHelpers.getFiducialID("limelight"));
+System.out.println("Expected ID: " + correctTagID);
     }
 
     public void toggleShooterOff() {
