@@ -13,7 +13,7 @@ public class SuckingBalls extends Command {
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         // if (isOn()) {
         //     toggleOff();
         // } else {

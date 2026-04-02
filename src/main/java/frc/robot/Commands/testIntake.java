@@ -13,7 +13,7 @@ public class testIntake extends Command {
     }
 
     @Override
-public void execute() {
+public void initialize() {
     suck.testIntake();
 }
 

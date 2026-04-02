@@ -100,9 +100,9 @@ public class RobotContainer {
     public RobotContainer() {
         NamedCommands.registerCommand("SuckingBalls", suckingBalls.withTimeout(5));
         NamedCommands.registerCommand("StopIntake", stopIntake);
-        NamedCommands.registerCommand("Open", openMouth);
-        NamedCommands.registerCommand("Close", closeMouth);
-        NamedCommands.registerCommand("Shoot", shoot.withTimeout(5));
+        NamedCommands.registerCommand("Open", openMouth.withTimeout(1));
+        NamedCommands.registerCommand("Close", closeMouth.withTimeout(1));
+        NamedCommands.registerCommand("Shoot", shoot.withTimeout(3));
         NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
 
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
