@@ -117,7 +117,7 @@ public class Vision extends SubsystemBase {
       return -1;
     }
       double[] botpose = NetworkTableInstance.getDefault()
-              .getTable("limelight")
+              .getTable("limelight-right")
               .getEntry("botpose_targetspace") // TODO: verify this is doing what you expect
               .getDoubleArray(new double[6]);
 
@@ -143,15 +143,18 @@ public class Vision extends SubsystemBase {
     Double power = shootingDistance.get(distance);
 
     return power != null ? power : 1.0;
+
+
   }
 
+
   public boolean hasTarget() {
-    return LimelightHelpers.getTV("limelight");
+    return LimelightHelpers.getTV("limelight-right");
 }
 
 public boolean isCorrectTag(int tagID) {
     if (!hasTarget()) return false;
-    return (int) LimelightHelpers.getFiducialID("limelight") == tagID;
+    return (int) LimelightHelpers.getFiducialID("limelight-right") == tagID;
 }
 
 }

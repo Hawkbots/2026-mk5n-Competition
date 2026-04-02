@@ -1,16 +1,16 @@
-package frc.robot.Commands; //i want to name it poop or pee
+package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Loader;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Feeder;
 
-public class Shoot  extends Command {
+public class ShootAuto extends Command {
     private Shooter shooter; 
     private Loader loader;
     private Feeder feeder;
 
-    public Shoot(Shooter shooter, Loader loader, Feeder feeder) {
+    public ShootAuto(Shooter shooter, Loader loader, Feeder feeder) {
         this.shooter = shooter;
         this.loader = loader;
         this.feeder = feeder;
@@ -42,7 +42,6 @@ public class Shoot  extends Command {
         shooter.shoot();
         loader.load();
         feeder.startFeeder();
-        
     }
 
     public void toggleShooterOff() {

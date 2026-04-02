@@ -29,6 +29,7 @@ import frc.robot.Commands.Shoot;
 import frc.robot.Commands.ShootAt50Percent;
 import frc.robot.Commands.ShootAt75Percent;
 import frc.robot.Commands.ShootAtMaxPower;
+import frc.robot.Commands.ShootAuto;
 import frc.robot.Commands.StopIntake;
 import frc.robot.Commands.SuckingBalls;
 import frc.robot.Commands.reverseIntake;
@@ -92,18 +93,20 @@ public class RobotContainer {
     private final Command shootAt50Percent = new ShootAt50Percent(shooter, loader, feeder);
     private final Command shootMaxPower = new ShootAtMaxPower(shooter, loader, feeder);
     private final Command shootAt75Percent = new ShootAt75Percent(shooter, loader, feeder);
+    private final Command shootAuto = new ShootAuto(shooter, loader, feeder);
 
     private final SendableChooser<Command> autoChooser;
     
 
 
     public RobotContainer() {
-        NamedCommands.registerCommand("SuckingBalls", suckingBalls.withTimeout(5));
+        NamedCommands.registerCommand("SuckingBalls", suckingBalls);
         NamedCommands.registerCommand("StopIntake", stopIntake);
-        NamedCommands.registerCommand("Open", openMouth.withTimeout(1));
-        NamedCommands.registerCommand("Close", closeMouth.withTimeout(1));
-        NamedCommands.registerCommand("Shoot", shoot.withTimeout(3));
+        NamedCommands.registerCommand("Open", openMouth);
+        NamedCommands.registerCommand("Close", closeMouth);
+        NamedCommands.registerCommand("Shoot", shoot);
         NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
+        NamedCommands.registerCommand("ShootAuto", shootAuto.withTimeout(5));
 
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);
