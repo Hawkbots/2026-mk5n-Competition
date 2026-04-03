@@ -78,9 +78,20 @@ public class Vision extends SubsystemBase {
     // if the robot never turns in the correct direction, kP should be inverted.
     double kP = -.035;
 
+    double tHEAngleWeWant = 0.0; // tune this for the angle aligning
+    //if ball flies too much to the left, increase positively
+    //if ball flies too much to the right, increase negatively
+
+    double targetingAngularVelocity = LimelightHelpers.getTX("limelight-right");
+
+
+    double error = tx - tHEAngleWeWant;
+
+    double targetingAngularVelocity = error * kP;
+
+
     // tx ranges from (-hfov/2) to (hfov/2) in degrees. If your target is on the rightmost edge of 
     // your limelight 3 feed, tx should return roughly 31 degrees.
-    double targetingAngularVelocity = LimelightHelpers.getTX("limelight-right") * kP;
 
     // convert to radians per second for our drive method
     targetingAngularVelocity *= Constants.LimelightConstants.kMaxAngularSpeed;
