@@ -24,9 +24,12 @@ public class AimAndShoot  extends Command {
     @Override
     public void execute() {
         boolean onTarget = vision.aim();
-        if (onTarget && !shooterisOn()) {
-            toggleShooterOn();
-        }
+        
+    if (onTarget) {
+        toggleShooterOn();
+    } else {
+        toggleShooterOff();
+    }
     }
 
     @Override
