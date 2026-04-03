@@ -80,7 +80,7 @@ public class Vision extends SubsystemBase {
 
     // tx ranges from (-hfov/2) to (hfov/2) in degrees. If your target is on the rightmost edge of 
     // your limelight 3 feed, tx should return roughly 31 degrees.
-    double targetingAngularVelocity = LimelightHelpers.getTX("limelight") * kP;
+    double targetingAngularVelocity = LimelightHelpers.getTX("limelight-right") * kP;
 
     // convert to radians per second for our drive method
     targetingAngularVelocity *= Constants.LimelightConstants.kMaxAngularSpeed;
