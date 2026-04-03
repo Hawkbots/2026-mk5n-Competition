@@ -82,12 +82,17 @@ public class Vision extends SubsystemBase {
     //if ball flies too much to the left, increase positively
     //if ball flies too much to the right, increase negatively
 
-    double targetingAngularVelocity = LimelightHelpers.getTX("limelight-right");
+    double tx = LimelightHelpers.getTX("limelight-right");
 
 
     double error = tx - tHEAngleWeWant;
 
     double targetingAngularVelocity = error * kP;
+
+    int aprilID = (int) LimelightHelpers.getFiducialID("limelight-right");
+
+    if (tagID == 9) desiredOffset = 2.0; //change this
+    else if (tagID == 10) desiredOffset = -1.5; //placeholder too
 
 
     // tx ranges from (-hfov/2) to (hfov/2) in degrees. If your target is on the rightmost edge of 
