@@ -185,9 +185,8 @@ public class RobotContainer {
         // joystick.x().whileTrue(shootAt50Percent);
         joystick.y().whileTrue(shootMaxPower);
         // joystick.rightTrigger().whileTrue(digest);
-        // joystick.leftTrigger().whileTrue(shootAt75Percent);
-        operator.button(5).whileTrue(shoot);
-        operator.button(2).whileTrue(aimAndShoot); //I DO NOT KNOW THE BUTTONS AND I DONT HAVE VS CODE TO TEST
+        joystick.leftTrigger().whileTrue(shootAt75Percent);
+        joystick.rightTrigger().whileTrue(shoot);
 
 // dual controller, controller + buttonboard, where controller moves button board for commands.
 // add buttonboard
