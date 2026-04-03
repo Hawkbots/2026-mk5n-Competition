@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 
-public class SuckingBalls extends Command {
+public class IntakeFuels extends Command {
     private Intake suck; 
 
-    public SuckingBalls(Intake suck) {
+    public IntakeFuels(Intake suck) {
         this.suck = suck;
         addRequirements(suck);
     }

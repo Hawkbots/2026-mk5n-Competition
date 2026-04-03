@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Prep"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Load"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Final Shoot"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

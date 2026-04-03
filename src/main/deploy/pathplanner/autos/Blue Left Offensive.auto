@@ -5,19 +5,31 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "AutoDeploy"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Prep"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Forward"
+                  "pathName": "Load"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoSuckBalls"
+                  "name": "autoIntakeFuels"
                 }
               }
             ]
@@ -26,38 +38,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Backward"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Digest"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoStore"
-                }
-              }
-            ]
+            "pathName": "Final Shoot"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoDeploy"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootAuto"
+            "name": "AutoShoot"
           }
         }
       ]

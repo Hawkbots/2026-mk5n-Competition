@@ -23,15 +23,20 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Commands.AimAndShoot;
+import frc.robot.Commands.AutoDeploy;
+import frc.robot.Commands.AutoStore;
+import frc.robot.Commands.AutoIntakeFuels;
 import frc.robot.Commands.CloseMouth;
+import frc.robot.Commands.Digest;
 import frc.robot.Commands.OpenMouth;
 import frc.robot.Commands.Shoot;
 import frc.robot.Commands.ShootAt50Percent;
 import frc.robot.Commands.ShootAt75Percent;
 import frc.robot.Commands.ShootAtMaxPower;
 import frc.robot.Commands.ShootAuto;
+import frc.robot.Commands.ShootingNo2;
 import frc.robot.Commands.StopIntake;
-import frc.robot.Commands.SuckingBalls;
+import frc.robot.Commands.IntakeFuels;
 import frc.robot.Commands.reverseIntake;
 import frc.robot.Commands.ReverseShooter;
 // import frc.robot.Commands.Digest;
@@ -79,14 +84,14 @@ public class RobotContainer {
 
     private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
-    public final Command suckingBalls = new SuckingBalls(intake);
+    public final Command intakeFuels = new IntakeFuels(intake);
     public final Command stopIntake = new StopIntake(intake);
     public final Command openMouth = new OpenMouth(intake);
     public final Command closeMouth = new CloseMouth(intake);
     private final Shoot shoot = new Shoot(shooter, loader, feeder);
     private final Command aimAndShoot = new AimAndShoot(limeLight, shooter, loader, feeder);
 
-    // private final Command digest = new Digest(feeder);
+    private final Command digest = new Digest(feeder);
     private final Command reverseShooter = new ReverseShooter(shooter, loader, feeder);
     private final Command testIntake = new testIntake(intake);
     private final Command reverseIntake = new reverseIntake(intake);
@@ -94,19 +99,28 @@ public class RobotContainer {
     private final Command shootMaxPower = new ShootAtMaxPower(shooter, loader, feeder);
     private final Command shootAt75Percent = new ShootAt75Percent(shooter, loader, feeder);
     private final Command shootAuto = new ShootAuto(shooter, loader, feeder);
-
+    private final Command autoDeploy = new AutoDeploy(intake);
+    private final Command autoStore = new AutoStore(intake);
+    private final Command autoIntakeFuels = new AutoIntakeFuels(intake);
+    private final Command shootingNo2 = new ShootingNo2(shooter, loader, feeder);
     private final SendableChooser<Command> autoChooser;
     
 
 
     public RobotContainer() {
-        NamedCommands.registerCommand("SuckingBalls", suckingBalls);
+        NamedCommands.registerCommand("IntakeFuels", intakeFuels);
         NamedCommands.registerCommand("StopIntake", stopIntake);
         NamedCommands.registerCommand("Open", openMouth);
         NamedCommands.registerCommand("Close", closeMouth);
         NamedCommands.registerCommand("Shoot", shoot);
         NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
-        NamedCommands.registerCommand("ShootAuto", shootAuto.withTimeout(5));
+        NamedCommands.registerCommand("ShootAuto", shootAuto.withTimeout(6.7)); //shoot
+        NamedCommands.registerCommand("AutoDeploy", autoDeploy.withTimeout(1.25)); //deploy ground intake
+        NamedCommands.registerCommand("AutoStore", autoStore.withTimeout(1)); //store ground intake
+        NamedCommands.registerCommand("autoIntakeFuels", autoIntakeFuels.withTimeout(1.25)); //start intake motors
+        NamedCommands.registerCommand("Digest", digest.withTimeout(.5)); //start feeder motors
+        NamedCommands.registerCommand("ShootingNo2", shootingNo2.withTimeout(.5)); //start feeder motors
+
 
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);

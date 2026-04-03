@@ -58,10 +58,10 @@ public class Vision extends SubsystemBase {
 
       double rot = limelight_aim_proportional();
 
-      if (LimelightHelpers.getTV("limelight")) {
+      if (LimelightHelpers.getTV("limelight-right")) {
         drive.withVelocityX(0).withVelocityY(0).withRotationalRate(rot);
 
-        double tx = LimelightHelpers.getTX("limelight"); // get the horizontal offset from the crosshair to the target in degrees. This will be used for aiming.
+        double tx = LimelightHelpers.getTX("limelight-right"); // get the horizontal offset from the crosshair to the target in degrees. This will be used for aiming.
         return Math.abs(tx) < Constants.LimelightConstants.kAimingTolerance; // check if the robot is aimed at the target
       }
       return false;
