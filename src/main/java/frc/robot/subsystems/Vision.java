@@ -58,10 +58,10 @@ public class Vision extends SubsystemBase {
 
       double rot = limelight_aim_proportional();
 
-      if (LimelightHelpers.getTV("limelight-right")) {
+      if (LimelightHelpers.getTV("limelight")) {
         drive.withVelocityX(0).withVelocityY(0).withRotationalRate(rot);
 
-        double tx = LimelightHelpers.getTX("limelight-right"); // get the horizontal offset from the crosshair to the target in degrees. This will be used for aiming.
+        double tx = LimelightHelpers.getTX("limelight"); // get the horizontal offset from the crosshair to the target in degrees. This will be used for aiming.
         return Math.abs(tx) < Constants.LimelightConstants.kAimingTolerance; // check if the robot is aimed at the target
       }
       return false;
@@ -78,16 +78,16 @@ public class Vision extends SubsystemBase {
     // if the robot never turns in the correct direction, kP should be inverted.
     double kP = -.035;
 
-    double tx = LimelightHelpers.getTX("limelight-right");
+    double tx = LimelightHelpers.getTX("limelight");
 
     double desiredOffset = 0.0; // tune this for the angle aligning
     //if ball flies too much to the left, increase positively
     //if ball flies too much to the right, increase negatively
       
-    int aprilID = (int) LimelightHelpers.getFiducialID("limelight-right");
+    int aprilID = (int) LimelightHelpers.getFiducialID("limelight");
 
-    if (aprilID == 9) desiredOffset = 2.0; //change this
-    else if (aprilID == 10) desiredOffset = -1.5; //placeholder too
+    if (aprilID == 10) desiredOffset = 2.0; //change this
+    else if (aprilID == 8) desiredOffset = -1.5; //placeholder too
     //add more if condition for more april tags
 
     double error = tx - desiredOffset;
@@ -133,7 +133,7 @@ public class Vision extends SubsystemBase {
       return -1;
     }
       double[] botpose = NetworkTableInstance.getDefault()
-              .getTable("limelight-right")
+              .getTable("limelight")
               .getEntry("botpose_targetspace") // TODO: verify this is doing what you expect
               .getDoubleArray(new double[6]);
 
@@ -165,12 +165,12 @@ public class Vision extends SubsystemBase {
 
 
   public boolean hasTarget() {
-    return LimelightHelpers.getTV("limelight-right");
+    return LimelightHelpers.getTV("limelight");
 }
 
 public boolean isCorrectTag(int tagID) {
     if (!hasTarget()) return false;
-    return (int) LimelightHelpers.getFiducialID("limelight-right") == tagID;
+    return (int) LimelightHelpers.getFiducialID("limelight") == tagID;
 }
 
 }

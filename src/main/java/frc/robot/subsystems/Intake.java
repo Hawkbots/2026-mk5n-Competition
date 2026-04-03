@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase {
 
     //Troy Test Code Below
     public void testIntake() { //paste this in somewhere in Intake.java
-        intakeMotor.set(-0.6);
+        intakeMotor.set(-0.475);
     }
 // setIntakeRPM(-1100); // example RPM
 //     }
