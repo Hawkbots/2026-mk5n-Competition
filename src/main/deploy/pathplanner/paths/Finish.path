@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 3.418002853067047,
+        "y": 5.76231098430813
       },
       "prevControl": {
-        "x": 2.525235378031383,
-        "y": 6.202225392296718
+        "x": 3.9432382310984297,
+        "y": 4.9645363766048485
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -46.70135460532605
   },
   "reversed": false,
-  "folder": "2026 Auto",
+  "folder": "2026 Auto Left",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

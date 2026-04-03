@@ -5,15 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "AutoDeploy"
+            "pathName": "Init"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Prep"
+            "name": "AutoDeploy"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Load"
+                  "pathName": "Gather"
                 }
               },
               {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Final Shoot"
+            "pathName": "Shoot Time"
           }
         },
         {

@@ -1,4 +1,4 @@
-package frc.robot.Commands; //i want to name it poop or pee
+package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Loader;
@@ -24,9 +24,12 @@ public class AimAndShoot  extends Command {
     @Override
     public void execute() {
         boolean onTarget = vision.aim();
-        if (onTarget && !shooterisOn()) {
-            toggleShooterOn();
-        }
+        
+    if (onTarget) {
+        toggleShooterOn();
+    } else {
+        toggleShooterOff();
+    }
     }
 
     @Override

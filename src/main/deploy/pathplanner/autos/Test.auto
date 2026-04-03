@@ -5,59 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Forward"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoSuckBalls"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Backward"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Digest"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoStore"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoDeploy"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootAuto"
+            "pathName": "Forward"
           }
         }
       ]
