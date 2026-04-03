@@ -55,6 +55,7 @@ import frc.robot.Commands.reverseIntake;
 import frc.robot.Commands.ShootAt50Percent;
 import frc.robot.Commands.ShootAtMaxPower;
 import frc.robot.Commands.ShootAt75Percent;
+import frc.robot.Commands.AimAndShoot;
 
 
 
@@ -103,6 +104,7 @@ public class RobotContainer {
     private final Command autoStore = new AutoStore(intake);
     private final Command autoIntakeFuels = new AutoIntakeFuels(intake);
     private final Command shootingNo2 = new ShootingNo2(shooter, loader, feeder);
+
     private final SendableChooser<Command> autoChooser;
     
 
@@ -184,7 +186,8 @@ public class RobotContainer {
         joystick.y().whileTrue(shootMaxPower);
         // joystick.rightTrigger().whileTrue(digest);
         joystick.leftTrigger().whileTrue(shootAt75Percent);
-        joystick.rightTrigger().whileTrue(shoot);
+        //joystick.rightTrigger().whileTrue(shoot);
+        joystick.rightTrigger().whileTrue(aimAndShoot); //I DO NOT KNOW THE BUTTONS AND I DONT HAVE VS CODE TO TEST
 
 // dual controller, controller + buttonboard, where controller moves button board for commands.
 // add buttonboard
