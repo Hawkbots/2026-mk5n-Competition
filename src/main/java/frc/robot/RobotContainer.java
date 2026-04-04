@@ -63,8 +63,8 @@ import frc.robot.Commands.AimAndShoot;
 public class RobotContainer {
     //Default MaxSpeed = 1.0, jack made 0.2 for testing
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) ; // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.77).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-
+    private double MaxAngularRate = RotationsPerSecond.of(1.0).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+// OLD VALUE FOR ANGULAR = 0.77
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
@@ -91,7 +91,7 @@ public class RobotContainer {
     public final Command openMouth = new OpenMouth(intake);
     public final Command closeMouth = new CloseMouth(intake);
     private final Shoot shoot = new Shoot(shooter, loader, feeder);
-    private final Command aimAndShoot = new AimAndShoot(limeLight, shooter, loader, feeder);
+    private final Command aimAndShoot = new AimAndShoot(limeLight, shooter, loader, feeder, drivetrain);
 
     private final Command digest = new Digest(feeder);
     private final Command reverseShooter = new ReverseShooter(shooter, loader, feeder);
@@ -187,7 +187,7 @@ public class RobotContainer {
         joystick.y().whileTrue(shootMaxPower);
         // joystick.rightTrigger().whileTrue(digest);
         joystick.leftTrigger().whileTrue(shootAt75Percent);
-        joystick.rightTrigger().whileTrue(shoot);
+        // joystick.rightTrigger().whileTrue(shoot);
         // operator.button(2).whileTrue(digest);
 
         operator.button(2).whileTrue(aimAndShoot);

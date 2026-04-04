@@ -36,12 +36,12 @@ public class Vision extends SubsystemBase {
 //V= 6 or 5.5 is lowest to reach
 
 
-    public Vision(SwerveRequest.FieldCentric drive, CommandSwerveDrivetrain drivetrain) {
+    public Vision(SwerveRequest.FieldCentric drive) {
         this.drive = drive;
         NetworkTable table = NetworkTableInstance.getDefault().getTable("Settings");
         shooterPowerEntry = table.getEntry(Constants.ShooterSettings.SHOOTER_POWER_NAME);
         shooterPowerEntry.setDefaultDouble(Constants.ShooterSettings.POWER);
-this.drivetrain = drivetrain;
+// this.drivetrain = drivetrain;
     }
 
 
@@ -62,7 +62,7 @@ this.drivetrain = drivetrain;
       double rot = limelight_aim_proportional();
 
       if (LimelightHelpers.getTV("limelight")) {
-        drivetrain.setControl(new SwerveRequest.FieldCentric().withVelocityX(0).withVelocityY(0).withRotationalRate(rot));
+        // drivetrain.setControl(new SwerveRequest.FieldCentric().withVelocityX(0).withVelocityY(0).withRotationalRate(rot));
 //bump kP up if it doesn't work
 
         double tx = LimelightHelpers.getTX("limelight"); // get the horizontal offset from the crosshair to the target in degrees. This will be used for aiming.
