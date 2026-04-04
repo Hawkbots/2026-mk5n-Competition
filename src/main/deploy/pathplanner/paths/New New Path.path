@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.794992867332382,
-        "y": 5.801126961483595
+        "x": 3.366248216833095,
+        "y": 5.594108416547789
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.730299572039942,
-        "y": 6.758587731811698
+        "x": 2.693437945791726,
+        "y": 5.555292439372325
       },
       "isLocked": false,
-      "linkedName": "BROOO"
+      "linkedName": "Initial Pos"
     },
     {
       "anchor": {
-        "x": 7.998288159771754,
-        "y": 4.985991440798859
+        "x": 1.3866333808844504,
+        "y": 5.82700427960057
       },
       "prevControl": {
-        "x": 7.7265763195435095,
-        "y": 9.216932952924394
+        "x": 1.839486447931526,
+        "y": 5.749372325249643
+      },
+      "nextControl": {
+        "x": 0.9337803138373748,
+        "y": 5.904636233951496
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.212753209700427,
+        "y": 5.723495007132667
+      },
+      "prevControl": {
+        "x": 5.112967189728957,
+        "y": 5.529415121255349
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Shoot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -87.79740183823449
+    "rotation": -53.74616226255515
   },
   "reversed": false,
-  "folder": "2026 Auto Left",
+  "folder": "Mid",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -58.13402230639635
+    "rotation": -46.70135460532605
   },
   "useDefaultConstraints": true
 }

@@ -4,12 +4,13 @@
   "holonomicMode": true,
   "pathFolders": [
     "2026 Auto Left",
-    "New Folder",
-    "2026 Auto Right"
+    "2026 Auto Right",
+    "mid",
+    "Mid"
   ],
   "autoFolders": [],
-  "defaultMaxVel": 7.5,
-  "defaultMaxAccel": 7.5,
+  "defaultMaxVel": 30.0,
+  "defaultMaxAccel": 30.0,
   "defaultMaxAngVel": 90.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,

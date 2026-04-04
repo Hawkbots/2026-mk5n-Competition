@@ -39,7 +39,7 @@ public class ShootAuto extends Command {
     }
 
     private void toggleShooterOn() {
-        shooter.shoot();
+        shooter.shoot75Percent();
         loader.load();
         feeder.startFeeder();
     }

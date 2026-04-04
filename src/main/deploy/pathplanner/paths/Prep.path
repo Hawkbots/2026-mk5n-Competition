@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.418002853067047,
-        "y": 5.76231098430813
+        "x": 3.366248216833095,
+        "y": 5.594108416547789
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.083366619115549,
-        "y": 5.477660485021398
+        "x": 2.7840085592011405,
+        "y": 5.4517831669044226
       },
       "isLocked": false,
       "linkedName": "Initial Pos"
     },
     {
       "anchor": {
-        "x": 6.665606276747502,
-        "y": 7.043238231098431
+        "x": 1.8265477888730377,
+        "y": 5.839942938659058
       },
       "prevControl": {
-        "x": 6.247114385827765,
-        "y": 4.950778776499819
+        "x": 3.2756776034236803,
+        "y": 5.412967189728959
       },
       "nextControl": {
-        "x": 6.714635310532049,
-        "y": 7.288383400021161
+        "x": 1.5867405360193443,
+        "y": 5.91060043280345
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.114736091298145,
-        "y": 7.0820542082738935
+        "x": 6.794992867332382,
+        "y": 5.801126961483595
       },
       "prevControl": {
-        "x": 7.778330955777461,
-        "y": 7.457275320970042
+        "x": 5.41055634807418,
+        "y": 5.309457917261056
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Gather"
+      "linkedName": "BROOO"
     }
   ],
   "rotationTargets": [],
@@ -49,8 +49,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 7.5,
-    "maxAcceleration": 7.5,
+    "maxVelocity": 30.0,
+    "maxAcceleration": 30.0,
     "maxAngularVelocity": 90.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -58,7 +58,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -96.34019174590993
+    "rotation": -58.13402230639635
   },
   "reversed": false,
   "folder": "2026 Auto Left",

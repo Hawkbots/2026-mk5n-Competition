@@ -13,6 +13,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -61,7 +62,7 @@ import frc.robot.Commands.AimAndShoot;
 
 public class RobotContainer {
     //Default MaxSpeed = 1.0, jack made 0.2 for testing
-    private double MaxSpeed = 0.2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) ; // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.77).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     /* Setting up bindings for necessary control of the swerve drive platform */
@@ -116,12 +117,12 @@ public class RobotContainer {
         NamedCommands.registerCommand("Close", closeMouth);
         NamedCommands.registerCommand("Shoot", shoot);
         NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
-        NamedCommands.registerCommand("ShootAuto", shootAuto.withTimeout(6.7)); //shoot
+        NamedCommands.registerCommand("ShootAuto", shootAuto.withTimeout(6)); //shoot
         NamedCommands.registerCommand("AutoDeploy", autoDeploy.withTimeout(1.25)); //deploy ground intake
         NamedCommands.registerCommand("AutoStore", autoStore.withTimeout(1)); //store ground intake
         NamedCommands.registerCommand("autoIntakeFuels", autoIntakeFuels.withTimeout(1.25)); //start intake motors
         NamedCommands.registerCommand("Digest", digest.withTimeout(.5)); //start feeder motors
-        NamedCommands.registerCommand("ShootingNo2", shootingNo2.withTimeout(.5)); //start feeder motors
+        NamedCommands.registerCommand("ShootingNo2", shootingNo2.withTimeout(10)); //start feeder motors
 
 
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
@@ -187,6 +188,9 @@ public class RobotContainer {
         // joystick.rightTrigger().whileTrue(digest);
         joystick.leftTrigger().whileTrue(shootAt75Percent);
         joystick.rightTrigger().whileTrue(shoot);
+        // operator.button(2).whileTrue(digest);
+
+        operator.button(2).whileTrue(aimAndShoot);
 
 // dual controller, controller + buttonboard, where controller moves button board for commands.
 // add buttonboard
