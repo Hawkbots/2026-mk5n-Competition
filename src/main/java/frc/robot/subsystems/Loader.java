@@ -12,7 +12,7 @@ public class Loader extends SubsystemBase{
     }
 
     public void load() {
-        loaderMotor.set(-0.8);
+        loaderMotor.setVoltage(-8.5);
     }
 
     public void stop(){

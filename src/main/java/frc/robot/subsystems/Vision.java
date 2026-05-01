@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Set;
+
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -148,7 +150,11 @@ public class Vision extends SubsystemBase {
   }
 
   public double getShootingPower(int correctTagID) {
-    if (!isCorrectTag(correctTagID)) {
+    return getShootingPower(Set.of(correctTagID));
+  } 
+
+  public double getShootingPower(Set<Integer> correctTagIDs) {
+    if (!isCorrectTag(correctTagIDs)) {
       return shooterPowerEntry.getDouble(Constants.ShooterSettings.POWER);
     } //THIS IS THE ISSUE
     double distance = distance_estimation_for_shooting();
@@ -173,7 +179,14 @@ public class Vision extends SubsystemBase {
 }
 
 public boolean isCorrectTag(int tagID) {
-    if (!hasTarget()) return false;
-    return (int) LimelightHelpers.getFiducialID("limelight") == tagID;
+  return isCorrectTag(Set.of(tagID));
+}
+
+public boolean isCorrectTag(Set<Integer> tagIDs) {
+    if (!hasTarget()) { 
+      return false;
+    }
+
+    return tagIDs.contains((int) LimelightHelpers.getFiducialID("limelight"));
 }
 }
