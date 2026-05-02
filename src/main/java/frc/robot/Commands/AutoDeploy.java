@@ -3,11 +3,11 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
-public class OpenMouth extends Command {
+public class AutoDeploy extends Command {
     private Intake suck;
 
 
-    public OpenMouth(Intake suck) {
+    public AutoDeploy(Intake suck) {
         this.suck = suck;
         addRequirements(suck);
     }

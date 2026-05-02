@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 3.366248216833095,
+        "y": 5.594108416547789
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 2.7840085592011405,
+        "y": 5.4517831669044226
+      },
+      "isLocked": false,
+      "linkedName": "Initial Pos"
+    },
+    {
+      "anchor": {
+        "x": 1.298042704626335,
+        "y": 5.594108416547789
+      },
+      "prevControl": {
+        "x": 2.7471725191769782,
+        "y": 5.16713266761769
+      },
+      "nextControl": {
+        "x": 1.0582354517726416,
+        "y": 5.66476591069218
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.0
+        "x": 6.794992867332382,
+        "y": 5.801126961483595
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 5.41055634807418,
+        "y": 5.309457917261056
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BROOO"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -58.13402230639635
   },
   "reversed": false,
-  "folder": null,
+  "folder": "2026 Auto Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -46.70135460532605
   },
   "useDefaultConstraints": true
 }

@@ -3,25 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 8.658159771754635,
+        "y": 2.5535235378031382
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 7.648944365192582,
+        "y": 2.3594436519258193
+      },
+      "isLocked": false,
+      "linkedName": "Return Right"
+    },
+    {
+      "anchor": {
+        "x": 3.3274322396576315,
+        "y": 2.669971469329529
+      },
+      "prevControl": {
+        "x": 4.051997146932951,
+        "y": 2.230057061340941
+      },
+      "nextControl": {
+        "x": 2.4726447244359084,
+        "y": 3.18894960357129
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.0
+        "x": 2.978088445078458,
+        "y": 4.00265335235378
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 3.055720399429385,
+        "y": 3.1616405135520687
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,17 +54,17 @@
     "maxAngularVelocity": 90.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
-    "unlimited": true
+    "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "2026 Auto Right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 94.63546342690243
   },
   "useDefaultConstraints": true
 }

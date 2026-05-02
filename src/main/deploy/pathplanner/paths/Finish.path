@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 2.266462196861626,
+        "y": 4.028530670470756
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 1.761854493580599,
+        "y": 4.688402282453638
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Return"
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.0
+        "x": 3.366248216833095,
+        "y": 5.594108416547789
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 3.8914835948644777,
+        "y": 4.796333808844507
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Initial Pos"
     }
   ],
   "rotationTargets": [],
@@ -38,14 +38,14 @@
     "maxAngularVelocity": 90.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
-    "unlimited": true
+    "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -46.70135460532605
   },
   "reversed": false,
-  "folder": null,
+  "folder": "2026 Auto Left",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

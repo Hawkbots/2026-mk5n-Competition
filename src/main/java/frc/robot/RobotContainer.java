@@ -6,63 +6,129 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import java.lang.management.OperatingSystemMXBean;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.Commands.AimAndShoot;
+import frc.robot.Commands.AutoDeploy;
+import frc.robot.Commands.AutoStore;
+import frc.robot.Commands.AutoIntakeFuels;
 import frc.robot.Commands.CloseMouth;
+import frc.robot.Commands.Digest;
 import frc.robot.Commands.OpenMouth;
-import frc.robot.Commands.SuckingBalls;
+import frc.robot.Commands.Shoot;
+import frc.robot.Commands.ShootAt50Percent;
+import frc.robot.Commands.ShootAt75Percent;
+import frc.robot.Commands.ShootAtMaxPower;
+import frc.robot.Commands.ShootAuto;
+import frc.robot.Commands.ShootingNo2;
+import frc.robot.Commands.StopIntake;
+import frc.robot.Commands.IntakeFuels;
+import frc.robot.Commands.reverseIntake;
+import frc.robot.Commands.ReverseShooter;
+// import frc.robot.Commands.Digest;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Loader;
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import com.pathplanner.lib.auto.NamedCommands;
+import frc.robot.Commands.testIntake;
+import frc.robot.Commands.reverseIntake;
+import frc.robot.Commands.ShootAt50Percent;
+import frc.robot.Commands.ShootAtMaxPower;
+import frc.robot.Commands.ShootAt75Percent;
+import frc.robot.Commands.AimAndShoot;
+
+
 
 public class RobotContainer {
     //Default MaxSpeed = 1.0, jack made 0.2 for testing
-    private double MaxSpeed = 0.2 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-
+    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) ; // kSpeedAt12Volts desired top speed
+    private double MaxAngularRate = RotationsPerSecond.of(1.5).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+// OLD VALUE FOR ANGULAR = 0.77
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+    
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final Intake intake = new Intake();
     private final Feeder feeder = new Feeder();
-
+    private final Loader loader = new Loader();
     private final Vision limeLight = new Vision(drive);
+    private final Shooter shooter = new Shooter(limeLight);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandGenericHID operator = new CommandGenericHID(1);
 
     private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
-    private final Command suckingBalls = new SuckingBalls(intake, feeder);
-    private final Command openMouth = new OpenMouth(intake);
-    private final Command closeMouth = new CloseMouth(intake);
+    public final Command intakeFuels = new IntakeFuels(intake);
+    public final Command stopIntake = new StopIntake(intake);
+    public final Command openMouth = new OpenMouth(intake);
+    public final Command closeMouth = new CloseMouth(intake);
+    private final Shoot shoot = new Shoot(shooter, loader, feeder);
+    private final Command aimAndShoot = new AimAndShoot(limeLight, shooter, loader, feeder, drivetrain);
+
+    private final Command digest = new Digest(feeder);
+    private final Command reverseShooter = new ReverseShooter(shooter, loader, feeder);
+    private final Command testIntake = new testIntake(intake);
+    private final Command reverseIntake = new reverseIntake(intake);
+    private final Command shootAt50Percent = new ShootAt50Percent(shooter, loader, feeder);
+    private final Command shootMaxPower = new ShootAtMaxPower(shooter, loader, feeder);
+    private final Command shootAt75Percent = new ShootAt75Percent(shooter, loader, feeder);
+    private final Command shootAuto = new ShootAuto(shooter, loader, feeder);
+    private final Command autoDeploy = new AutoDeploy(intake);
+    private final Command autoStore = new AutoStore(intake);
+    private final Command autoIntakeFuels = new AutoIntakeFuels(intake);
+    private final Command shootingNo2 = new ShootingNo2(shooter, loader, feeder);
 
     private final SendableChooser<Command> autoChooser;
+    
+
 
     public RobotContainer() {
+        NamedCommands.registerCommand("IntakeFuels", intakeFuels);
+        NamedCommands.registerCommand("StopIntake", stopIntake);
+        NamedCommands.registerCommand("Open", openMouth);
+        NamedCommands.registerCommand("Close", closeMouth);
+        NamedCommands.registerCommand("Shoot", shoot);
+        NamedCommands.registerCommand("TEST", Commands.print("HELP MEEEEE FAWKKKKKK"));
+        NamedCommands.registerCommand("ShootAuto", shootAuto.withTimeout(6)); //shoot
+        NamedCommands.registerCommand("AutoDeploy", autoDeploy.withTimeout(1.25)); //deploy ground intake
+        NamedCommands.registerCommand("AutoStore", autoStore.withTimeout(1)); //store ground intake
+        NamedCommands.registerCommand("autoIntakeFuels", autoIntakeFuels.withTimeout(1.25)); //start intake motors
+        NamedCommands.registerCommand("Digest", digest.withTimeout(.5)); //start feeder motors
+        NamedCommands.registerCommand("ShootingNo2", shootingNo2.withTimeout(10)); //start feeder motors
+
+
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);
         configureBindings();
-        robotModelPublisher.set("/deploy/advantageScope/Robot2026.glb");
+        robotModelPublisher.set("/deploy/advantageScope/Robot2026.glb"); 
     }
 
     private final StringPublisher robotModelPublisher =
@@ -77,8 +143,8 @@ public class RobotContainer {
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
                 //DAVID, WE TOOK THE LAZY ROUTE AND REMOVED NEGATIVES FROM THESE NEXT TWO LINES. I AM SORRY
-                drive.withVelocityX(joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
                     .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
@@ -103,16 +169,38 @@ public class RobotContainer {
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // Reset the field-centric heading on left bumper press.
-        joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        joystick.button(7).onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        //Layouts for the driver
+        // https://docs.google.com/document/d/1kE2KGSsmVjENBrZgz8h4xG564upJ_x0yfAE-0r5c7ZY/edit?usp=sharing
         
-        joystick.x().onTrue(suckingBalls);
+        //joystick.x().onTrue(suckingBalls);
+        operator.button(3).whileTrue(testIntake);
+        operator.button(4).whileTrue(reverseIntake);
 
-        joystick.leftBumper().whileTrue(openMouth);
-        joystick.rightBumper().whileTrue(closeMouth);
+        operator.axisGreaterThan(1, 0.5).whileTrue(closeMouth);
+        operator.axisLessThan(1, -0.5).whileTrue(openMouth);
 
-        joystick.y().whileTrue((Commands.runOnce(() -> limeLight.driveToTag()).repeatedly()));
+        operator.axisGreaterThan(3, 0.95).whileTrue(aimAndShoot);
+        operator.button(1).whileTrue(reverseShooter);
+        // operator.axisGreaterThan(2, 0.95).onTrue(digest);
+        // joystick.x().whileTrue(shootAt50Percent);
+        joystick.rightTrigger().whileTrue(shootMaxPower);
+        // joystick.rightTrigger().whileTrue(digest);
+        joystick.leftTrigger().whileTrue(shootAt75Percent);
+        // joystick.rightTrigger().whileTrue(shoot);
+        // operator.button(2).whileTrue(digest);
+
+        operator.button(2).whileTrue(shoot);
+
+// dual controller, controller + buttonboard, where controller moves button board for commands.
+// add buttonboard
+// probably add the table for angle similar to distance. "at this distance, rotate until this degree
+
+
+        operator.button(4).whileTrue((Commands.runOnce(() -> limeLight.driveToTag()).repeatedly()));
     }
 
     public Command getAutonomousCommand() {

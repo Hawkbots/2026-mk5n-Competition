@@ -3,11 +3,11 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
-public class OpenMouth extends Command {
+public class AutoStore extends Command {
     private Intake suck;
 
 
-    public OpenMouth(Intake suck) {
+    public AutoStore(Intake suck) {
         this.suck = suck;
         addRequirements(suck);
     }
@@ -15,7 +15,7 @@ public class OpenMouth extends Command {
     @Override
     public void initialize() {
         suck.stopIntake();
-        suck.deploy(); // if bottom limitswitch returns true, deploy will halt and return
+        suck.store(); // if top limitswitch returns true, store will halt and return
     }
 
     @Override
@@ -27,6 +27,4 @@ public class OpenMouth extends Command {
     public boolean isFinished() {
         return false;
     }
-
-
 }
