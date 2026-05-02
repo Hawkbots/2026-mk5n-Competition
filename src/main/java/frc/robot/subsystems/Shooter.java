@@ -29,8 +29,11 @@ public class Shooter extends SubsystemBase {
 
     double shootingPower = vision.getShootingPower(Set.of(18, 26));
 
+//try making a shoot command to use only the middle motors to see if that fixes the brownout issue
+//or you can keep tuning the setVoltage until it works
+//also I added a docs with layout for the controller and button board as a comment in robotcontainer
 
-    public void shoot() {
+    public void shoot() { //default = 7.5 Voltage, set in Constants's POWER and POWER2
         leftShooterMotor.setVoltage(-shootingPower);
         middleShooterMotor.setVoltage(shootingPower);
         rightShooterMotor.setVoltage(shootingPower);
@@ -42,20 +45,15 @@ public class Shooter extends SubsystemBase {
         rightShooterMotor.setVoltage(9);
     }
 
-        public void shoot75Percent() {
+        public void shoot75Percent() { //left trigger
         leftShooterMotor.setVoltage(-6);
         middleShooterMotor.setVoltage(6);
         rightShooterMotor.setVoltage(6);
     }
 
-        public void shootMaxPower() {
-        leftShooterMotor.setVoltage(-5);
+        public void shootMaxPower() { //right trigger
         middleShooterMotor.setVoltage(5);
-        rightShooterMotor.setVoltage(5);
     }
-
-
-
 
     public void stopShooting() {
         leftShooterMotor.set(0);

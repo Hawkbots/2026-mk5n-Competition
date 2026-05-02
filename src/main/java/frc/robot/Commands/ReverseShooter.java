@@ -23,7 +23,6 @@ public class ReverseShooter extends Command{
     public void execute() {
         shooter.reverseShooter();
         loader.reverseLoader();
-        
         feeder.reverseFeeder();
     }
 
