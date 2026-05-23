@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\user\\\\Documents\\\\2026-mk5n-Competition\" -Force)",
+      "Bash(Select-Object Name, Mode)"
+    ]
+  }
+}

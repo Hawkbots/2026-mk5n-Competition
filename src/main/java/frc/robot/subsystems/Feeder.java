@@ -12,7 +12,7 @@ public class Feeder extends SubsystemBase {
     }
 
     public void startFeeder() {
-        feederMotor.set(-0.3);
+        feederMotor.set(-0.1);
     }
 
     public void stopFeeder(){
