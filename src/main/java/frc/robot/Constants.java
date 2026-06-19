@@ -6,6 +6,7 @@ public class Constants {
         public static final double kMaxSpeed = 10.0; // 3 meters per second
         public static final double kMaxAngularSpeed = Math.PI; // 1/2 rotation per second
         public static final double kAimingTolerance = 4.0; // degrees
+        public static final double kRangeTolerance = 3.0; // degrees ty, tune for desired stopping distance
     }
 
     public static class MotorConstants {

@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Commands.AimAndShoot;
 import frc.robot.Commands.AutoDeploy;
+import frc.robot.Commands.DriveToTag;
 import frc.robot.Commands.AutoStore;
 import frc.robot.Commands.AutoIntakeFuels;
 import frc.robot.Commands.CloseMouth;
@@ -62,7 +63,7 @@ import frc.robot.Commands.AimAndShoot;
 
 public class RobotContainer {
     //Default MaxSpeed = 1.0, jack made 0.2 for testing
-    private double MaxSpeed = 1 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) ; // kSpeedAt12Volts desired top speed
+    private double MaxSpeed = 0.6 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) ; // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(1.5).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 // OLD VALUE FOR ANGULAR = 0.77
     /* Setting up bindings for necessary control of the swerve drive platform */
@@ -105,6 +106,7 @@ public class RobotContainer {
     private final Command autoStore = new AutoStore(intake);
     private final Command autoIntakeFuels = new AutoIntakeFuels(intake);
     private final Command shootingNo2 = new ShootingNo2(shooter, loader, feeder);
+    private final Command driveToTag = new DriveToTag(drivetrain, limeLight, drive);
 
     private final SendableChooser<Command> autoChooser;
     
@@ -200,7 +202,7 @@ public class RobotContainer {
 // probably add the table for angle similar to distance. "at this distance, rotate until this degree
 
 
-        operator.button(4).whileTrue((Commands.runOnce(() -> limeLight.driveToTag()).repeatedly()));
+        operator.button(5).whileTrue(driveToTag);
     }
 
     public Command getAutonomousCommand() {

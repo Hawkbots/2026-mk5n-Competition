@@ -76,7 +76,7 @@ public class Vision extends SubsystemBase {
     /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  double limelight_aim_proportional() {    
+  public double limelight_aim_proportional() {
     // kP (constant of proportionality)
     // this is a hand-tuned number that determines the aggressiveness of our proportional control loop
     // if it is too high, the robot will oscillate.
@@ -116,7 +116,7 @@ public class Vision extends SubsystemBase {
   // simple proportional ranging control with Limelight's "ty" value
   // this works best if your Limelight's mount height and target mount height are different.
   // if your limelight and target are mounted at the same or similar heights, use "ta" (area) for target ranging rather than "ty"
-  double limelight_range_proportional() {    
+  public double limelight_range_proportional() {
     double kP = -.2;
     double targetingForwardSpeed = LimelightHelpers.getTY("limelight") * kP;
     targetingForwardSpeed *= Constants.LimelightConstants.kMaxSpeed;
@@ -125,7 +125,7 @@ public class Vision extends SubsystemBase {
   }
 
 
-  double limelight_strafe_proportional() {
+  public double limelight_strafe_proportional() {
     double kP = 0.03; // tune this
     double tx = LimelightHelpers.getTX("limelight");
     double strafeSpeed = tx * kP;

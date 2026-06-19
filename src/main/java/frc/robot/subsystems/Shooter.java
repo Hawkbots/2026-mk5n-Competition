@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase {
 //also I added a docs with layout for the controller and button board as a comment in robotcontainer
 
     public void shoot() { //default = 7.5 Voltage, set in Constants's POWER and POWER2
-        double shootingPower = vision.getShootingPower(Set.of(18, 26));
+        double shootingPower = vision.getShootingPower(18);
         leftShooterMotor.setVoltage(-shootingPower);
         middleShooterMotor.setVoltage(shootingPower);
         rightShooterMotor.setVoltage(shootingPower);
