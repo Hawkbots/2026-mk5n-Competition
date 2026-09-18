@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CodingTutorial",
+      "request": "launch",
+      "mainClass": "frc.robot.CodingTutorial",
+      "projectName": "2026-mk5n-Competition"
+    },
+    {
+      "type": "java",
       "name": "Main",
       "request": "launch",
       "mainClass": "frc.robot.Main",
