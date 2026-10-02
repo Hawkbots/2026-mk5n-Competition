@@ -7,13 +7,13 @@ import java.util.HashMap;
  * CODING TUTORIAL - Standalone walkthrough for new programmers.
  *
  * RECOMMENDED ORDER:
- *   1. Variables & Assignment  (lines ~30-55)
- *   2. Arithmetic & Strings    (lines ~58-90)
- *   3. Booleans & Conditionals (lines ~93-130)
- *   4. Loops                   (lines ~133-165)
- *   5. Methods / Functions     (lines ~168-185, see helpers below main)
- *   6. ArrayList               (lines ~188-220)
- *   7. HashMap                 (lines ~223-260)
+ *   1. Variables & Assignment  → milestone1_variablesAndAssignment()
+ *   2. Arithmetic & Strings    → milestone2_arithmeticAndStrings()
+ *   3. Booleans & Conditionals → milestone3_booleansAndConditionals()
+ *   4. Loops                   → milestone4_loops()
+ *   5. Methods / Functions     → milestone5_methods()
+ *   6. ArrayList               → milestone6_arrayList()
+ *   7. HashMap                 → milestone7_hashMap()
  *
  * HOW TO USE:
  *   - Run this file's main() in the debugger.
@@ -23,13 +23,22 @@ import java.util.HashMap;
 public class CodingTutorial {
 
     public static void main(String[] args) {
+        milestone1_variablesAndAssignment();
+        milestone2_arithmeticAndStrings();
+        milestone3_booleansAndConditionals();
+        milestone4_loops();
+        milestone5_methods();
+        milestone6_arrayList();
+        milestone7_hashMap();
+    }
 
-        // ------------------------------------------------------------------ //
-        // MILESTONE 1: Variables & Assignment
-        //   A variable is a named box that holds a value.
-        //   The type (int, double, boolean, String) describes what fits in the box.
-        // ------------------------------------------------------------------ //
 
+    // ------------------------------------------------------------------ //
+    // MILESTONE 1: Variables & Assignment
+    //   A variable is a named box that holds a value.
+    //   The type (int, double, boolean, String) describes what fits in the box.
+    // ------------------------------------------------------------------ //
+    static void milestone1_variablesAndAssignment() {
         int teamNumber = 5;           // whole number (integer)
         double targetRPM = 3000.5;    // decimal number
         boolean isAutonomous = true;  // true or false only
@@ -42,13 +51,17 @@ public class CodingTutorial {
         System.out.println("Team: " + teamNumber);
         System.out.println("Target RPM: " + targetRPM);
         System.out.println("Robot name: " + robotName);
+    }
 
 
-        // ------------------------------------------------------------------ //
-        // MILESTONE 2: Arithmetic & String Concatenation
-        //   Java follows standard math order of operations.
-        //   The + operator joins Strings together ("concatenation").
-        // ------------------------------------------------------------------ //
+    // ------------------------------------------------------------------ //
+    // MILESTONE 2: Arithmetic & String Concatenation
+    //   Java follows standard math order of operations.
+    //   The + operator joins Strings together ("concatenation").
+    // ------------------------------------------------------------------ //
+    static void milestone2_arithmeticAndStrings() {
+        String robotName = "Hawkbot";
+        double targetRPM = 3500.0;
 
         int scored = 10;
         int penalties = 2;
@@ -65,13 +78,16 @@ public class CodingTutorial {
         // String concatenation builds a sentence from parts.
         String announcement = robotName + " scored " + finalScore + " points!";
         System.out.println(announcement);
+    }
 
 
-        // ------------------------------------------------------------------ //
-        // MILESTONE 3: Booleans & Conditionals (if / else if / else)
-        //   A boolean is the result of a comparison: true or false.
-        //   Conditionals let the program choose different paths.
-        // ------------------------------------------------------------------ //
+    // ------------------------------------------------------------------ //
+    // MILESTONE 3: Booleans & Conditionals (if / else if / else)
+    //   A boolean is the result of a comparison: true or false.
+    //   Conditionals let the program choose different paths.
+    // ------------------------------------------------------------------ //
+    static void milestone3_booleansAndConditionals() {
+        double targetRPM = 3500.0;
 
         int ballsLoaded = 3;
         boolean readyToShoot = ballsLoaded > 0;   // comparison produces a boolean
@@ -98,16 +114,17 @@ public class CodingTutorial {
         } else {
             System.out.println("Robot running normally.");
         }
+    }
 
 
-        // ------------------------------------------------------------------ //
-        // MILESTONE 4: Loops
-        //   A loop repeats a block of code.
-        //   for-loop: ideal when you know how many repetitions ahead of time.
-        //   while-loop: ideal when you repeat until a condition changes.
-        // ------------------------------------------------------------------ //
-
-        // for-loop: counts from 1 up to 5 (inclusive)
+    // ------------------------------------------------------------------ //
+    // MILESTONE 4: Loops
+    //   A loop repeats a block of code.
+    //   for-loop: ideal when you know how many repetitions ahead of time.
+    //   while-loop: ideal when you repeat until a condition changes.
+    // ------------------------------------------------------------------ //
+    static void milestone4_loops() {
+        // for-loop: counts from 5 down to 1 (inclusive)
         System.out.println("Countdown to launch:");
         for (int i = 5; i >= 1; i--) {
             System.out.println("  " + i);
@@ -122,14 +139,18 @@ public class CodingTutorial {
             chargeSteps++;         // ++ adds 1; same as chargeSteps = chargeSteps + 1
         }
         System.out.println("Reached " + currentRPM + " RPM in " + chargeSteps + " steps.");
+    }
 
 
-        // ------------------------------------------------------------------ //
-        // MILESTONE 5: Methods (Functions)
-        //   A method is a named, reusable block of code.
-        //   You define it once (see below main), then call it by name.
-        //   Methods can take inputs (parameters) and return an output.
-        // ------------------------------------------------------------------ //
+    // ------------------------------------------------------------------ //
+    // MILESTONE 5: Methods (Functions)
+    //   A method is a named, reusable block of code.
+    //   You define it once (see helpers below), then call it by name.
+    //   Methods can take inputs (parameters) and return an output.
+    // ------------------------------------------------------------------ //
+    static void milestone5_methods() {
+        int scored = 10;
+        int penalties = 2;
 
         int total = add(scored, penalties);          // calling a method with two arguments
         System.out.println("add(10, 2) = " + total);
@@ -138,14 +159,15 @@ public class CodingTutorial {
         System.out.println("clamp(1.5, 0, 1) = " + speed);  // expected: 1.0
 
         printSeparator();                            // method with no parameters or return value
+    }
 
 
-        // ------------------------------------------------------------------ //
-        // MILESTONE 6: ArrayList (Dynamic List)
-        //   An ArrayList stores an ordered collection of items.
-        //   Unlike a plain array, it can grow and shrink at runtime.
-        // ------------------------------------------------------------------ //
-
+    // ------------------------------------------------------------------ //
+    // MILESTONE 6: ArrayList (Dynamic List)
+    //   An ArrayList stores an ordered collection of items.
+    //   Unlike a plain array, it can grow and shrink at runtime.
+    // ------------------------------------------------------------------ //
+    static void milestone6_arrayList() {
         ArrayList<String> targets = new ArrayList<>(); // empty list of Strings
 
         // add() appends an item to the end of the list
@@ -179,15 +201,16 @@ public class CodingTutorial {
         System.out.println("Scores: " + scores);
 
         printSeparator();
+    }
 
 
-        // ------------------------------------------------------------------ //
-        // MILESTONE 7: HashMap (Key-Value Lookup Table)
-        //   A HashMap stores pairs of keys and values — like a dictionary.
-        //   You look up a value by its key instead of by a numbered index.
-        //   Keys must be unique; values do not have to be.
-        // ------------------------------------------------------------------ //
-
+    // ------------------------------------------------------------------ //
+    // MILESTONE 7: HashMap (Key-Value Lookup Table)
+    //   A HashMap stores pairs of keys and values — like a dictionary.
+    //   You look up a value by its key instead of by a numbered index.
+    //   Keys must be unique; values do not have to be.
+    // ------------------------------------------------------------------ //
+    static void milestone7_hashMap() {
         HashMap<String, Integer> scoringZones = new HashMap<>(); // key=String, value=Integer
 
         // put(key, value) adds or updates an entry
