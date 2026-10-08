@@ -62,8 +62,8 @@ import frc.robot.Commands.AimAndShoot;
 
 
 public class RobotContainer {
-    //Default MaxSpeed = 1.0, jack made 0.2 for testing
-    private double MaxSpeed = 0.6 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) ; // kSpeedAt12Volts desired top speed
+    //Default MaxSpeed = 1.0, jack made 0.2 for testing, 0.6 for showcases (schools)
+    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond) ; // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(1.5).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 // OLD VALUE FOR ANGULAR = 0.77
     /* Setting up bindings for necessary control of the swerve drive platform */
@@ -186,7 +186,7 @@ public class RobotContainer {
         operator.axisLessThan(1, -0.5).whileTrue(openMouth);
 
         operator.axisGreaterThan(3, 0.95).whileTrue(aimAndShoot);
-        operator.button(1).whileTrue(reverseShooter);
+        operator.button(4).whileTrue(reverseShooter);
         // operator.axisGreaterThan(2, 0.95).onTrue(digest);
         // joystick.x().whileTrue(shootAt50Percent);
         joystick.rightTrigger().whileTrue(shootMaxPower);

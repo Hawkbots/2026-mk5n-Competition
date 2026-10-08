@@ -7,6 +7,8 @@ public class Constants {
         public static final double kMaxAngularSpeed = Math.PI; // 1/2 rotation per second
         public static final double kAimingTolerance = 4.0; // degrees
         public static final double kRangeTolerance = 3.0; // degrees ty, tune for desired stopping distance
+        public static final double kTargetTY = 5.0; // placeholder number - use smart dashboard to get ky at ideal distance from tag 
+        public static final double kMaxShooterVoltage = 9.0; // tune to ensure no brown out 
     }
 
     public static class MotorConstants {

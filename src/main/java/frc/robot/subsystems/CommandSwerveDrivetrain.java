@@ -30,10 +30,12 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import frc.robot.util.LoggedTunableNumber;
 
 
 /**
@@ -123,6 +125,16 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
     /* The SysId routine to test */
     private SysIdRoutine m_sysIdRoutineToApply = m_sysIdRoutineTranslation;
+
+    // Live-tunable drive gains — edit values from Elastic at /Tuning/Drive/*
+    private final LoggedTunableNumber driveKP = new LoggedTunableNumber("Drive/kP", 0.1);
+    private final LoggedTunableNumber driveKD = new LoggedTunableNumber("Drive/kD", 0.0);
+    private final LoggedTunableNumber driveKS = new LoggedTunableNumber("Drive/kS", 0.025);
+    private final LoggedTunableNumber driveKV = new LoggedTunableNumber("Drive/kV", 0.0);
+
+    // Live-tunable steer gains — edit values from Elastic at /Tuning/Steer/*
+    private final LoggedTunableNumber steerKP = new LoggedTunableNumber("Steer/kP", 50.0);
+    private final LoggedTunableNumber steerKD = new LoggedTunableNumber("Steer/kD", 0.0);
 
     /**
      * Constructs a CTRE SwerveDrivetrain using the specified constants.
@@ -295,6 +307,26 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         }
         publisher.set(poseA);
         arrayPublisher.set(new Pose2d[] {poseA, poseB});
+
+        if (LoggedTunableNumber.hasChanged(driveKP, driveKD, driveKS, driveKV)) {
+            var gains = new Slot0Configs()
+                .withKP(driveKP.get())
+                .withKD(driveKD.get())
+                .withKS(driveKS.get())
+                .withKV(driveKV.get());
+            for (int i = 0; i < 4; i++) {
+                getModule(i).getDriveMotor().getConfigurator().apply(gains);
+            }
+        }
+
+        if (LoggedTunableNumber.hasChanged(steerKP, steerKD)) {
+            var gains = new Slot0Configs()
+                .withKP(steerKP.get())
+                .withKD(steerKD.get());
+            for (int i = 0; i < 4; i++) {
+                getModule(i).getSteerMotor().getConfigurator().apply(gains);
+            }
+        }
     }
 
     private void startSimThread() {

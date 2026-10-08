@@ -75,14 +75,15 @@ public class Vision extends SubsystemBase {
 
     /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
+   */ 
   public double limelight_aim_proportional() {
     // kP (constant of proportionality)
     // this is a hand-tuned number that determines the aggressiveness of our proportional control loop
     // if it is too high, the robot will oscillate.
     // if it is too low, the robot will never reach its target
     // if the robot never turns in the correct direction, kP should be inverted.
-    double kP = -.035;
+    // I made this pos again because there is a line (targeting_angular_velocity) where the value is automatically flipped to convert tx -> needed movement direction
+    double kP = .035;
 
     double tx = LimelightHelpers.getTX("limelight");
 
@@ -118,7 +119,7 @@ public class Vision extends SubsystemBase {
   // if your limelight and target are mounted at the same or similar heights, use "ta" (area) for target ranging rather than "ty"
   public double limelight_range_proportional() {
     double kP = -.2;
-    double targetingForwardSpeed = LimelightHelpers.getTY("limelight") * kP;
+    double targetingForwardSpeed = LimelightHelpers.getTY("limelight") - Constants.LimelightConstants.kTargetTY * kP;
     targetingForwardSpeed *= Constants.LimelightConstants.kMaxSpeed;
     targetingForwardSpeed *= -1.0;
     return targetingForwardSpeed;
@@ -154,21 +155,24 @@ public class Vision extends SubsystemBase {
   } 
 
   public double getShootingPower(Set<Integer> correctTagIDs) {
+    // ! acts as a not and makes it so that we are checking if this is false
     if (!isCorrectTag(correctTagIDs)) {
       return shooterPowerEntry.getDouble(Constants.ShooterSettings.POWER);
-    } //THIS IS THE ISSUE
+    } 
     double distance = distance_estimation_for_shooting();
 
-    if (distance < 0) {
-      return shooterPowerEntry.getDouble(Constants.ShooterSettings.POWER2);
-    }
+    //if (distance < 0) {
+      //return shooterPowerEntry.getDouble(Constants.ShooterSettings.POWER2);
+    //} - commented out because the only way distance_estimation... returns -1 is when there is no target, but above if is already catching that
 
     distance = Math.min(distance, maximum_distance);
     distance = Math.max(distance, minimum_distance);
 
     Double power = shootingDistance.get(distance);
 
-    return power != null ? power : 1.0;
+    Double result = power != null ? power : 1.0;
+    return Math.min(result, Constants.LimelightConstants.kMaxShooterVoltage); // math.min picks smaller value so if map value > max returns max
+
 
 
   }

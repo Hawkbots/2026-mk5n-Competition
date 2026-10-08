@@ -26,7 +26,8 @@ public class DriveToTag extends Command {
             return;
         }
         double xSpeed = m_vision.limelight_range_proportional();
-        double ySpeed = m_vision.limelight_strafe_proportional();
+        double ySpeed = 0;
+        // has been made 0 because yspeed and rot are fighting eachother since range_proportional and aim_proprtional both use tx leading to them fighting eachother in an endless loop 
         double rot    = m_vision.limelight_aim_proportional();
         m_drivetrain.setControl(m_drive.withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot));
     }
@@ -42,7 +43,7 @@ public class DriveToTag extends Command {
         double tx = LimelightHelpers.getTX("limelight");
         double ty = LimelightHelpers.getTY("limelight");
         boolean aligned = Math.abs(tx) < Constants.LimelightConstants.kAimingTolerance;
-        boolean atRange = Math.abs(ty) < Constants.LimelightConstants.kRangeTolerance;
+        boolean atRange = Math.abs(Constants.LimelightConstants.kTargetTY) < Constants.LimelightConstants.kRangeTolerance;
         return aligned && atRange;
     }
 }
